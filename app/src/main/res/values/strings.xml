@@ -1,0 +1,50 @@
+<resources>
+    <string name="app_name">HSE App</string>
+
+    <string name="l1">Apakah Lebar Loading Point sesuai dengan parameter hingga pergerakan manuver dump truck aman sesuai jenis dump truck</string>
+    <string name="l2">Apakah permukaan loading point rata dan bebas dari tumpahan material berserakan?</string>
+    <string name="l3">Apakah grade jalan atau rambu menuju loading sesuai parameter &lt; 8%</string>
+    <string name="l4">Apakah ada alat support Buldozer untuk membersihkan loading point</string>
+    <string name="l5">Apakah fatok survey sudah terpasang lengkap sebagai acuan</string>
+    <string name="l6">Apakah penggalian sudah sesuai desain atau patok survey acuan kerja</string>
+    <string name="l7">Apakah pada lokasi kerja aman dari potensi longsor dan material menggantung</string>
+    <string name="l8">Apakah cukup penerangan untuk operasi malam hari (NAB :20LUX)</string>
+    <string name="l9">Apakah material siap loading ( Sudah diblasing, dripping, cukup lunak untuk digali dimuat) dan cukup untuk pada shift ini-</string>
+    <string name="l10">Apakah saluran air yang diluar atau didalam areal tambang berfungsi dengan baik?</string>
+    <string name="l11">Apakah saluran air disepanjang jalan angkut, jika ada, apakah berfungsi dengan baik?</string>
+    <string name="l12">Apakah pada permukaan loading point bebas dari genangan air dan terbebas dari cekungan potensi untuk terjadinya kantungan air</string>
+    <string name="l13">Apakah gorong-gorong(jika ada) cukup untuk debit air yang lewat</string>
+    <string name="l14">Apakah tinggi loading point sesuai parameter (sesuai denga Hauler)</string>
+    <string name="l15">Apakah terdapat rambu/Peringatan terpasang dengan jumlah memadai</string>
+    <string name="l16">Apakah jalan tidak digunakan lagi atau jalan yang terdapat beda tinggi telah diberikade atau diblok</string>
+    <string name="l17">Apakah alat yang digunakan memiliki stiker Commisioning masih berlaku</string>
+    <string name="l18">Apakah semua aliran air diarahkan menuju sump</string>
+    <string name="l19">Apakah areal ekspose batubara menjadi daerah terbatas dan minimalkan kontaminasi</string>
+    <string name="l20">Apakah Tower Lamp diletakkan pada tempat yang aman dan aktifitas alat berat</string>
+    <string name="l21">Apakah parkir kendaraan sarana aman dari manuver alat berat, radius putar dan lintasan kerja alat berat minimal 30 meter</string>
+    <string name="l22">Apakah sampah terkelola dengan baik, tidak berserakan diarea front loading</string>
+    <string name="l23">Apakah semua peralatan telah dilengkapi radio komunikasi</string>
+    <string name="l24">Tersedia area berkumpul dalam keadaan darurat atau Emergency Assembly Point</string>
+    <string name="l25">Apakah Unit Loading tersedia(Excavator/Loader) untuk loading muat material</string>
+    <string name="l26">Apakah adanya penyiraman saat area loading berdebu oleh unit water truck</string>
+
+    <string-array name="shift">
+        <item>Shift 1</item>
+        <item>Shift 2</item>
+        <item>Shift 3</item>
+    </string-array>
+    <string-array name="grup">
+        <item>A</item>
+        <item>B</item>
+        <item>C</item>
+        <item>D</item>
+    </string-array>
+    <string-array name="lokasi">
+        <item>TAL</item>
+        <item>MTBU</item>
+        <item>BANKO</item>
+        <item>MTB</item>
+    </string-array>
+
+
+</resources>
