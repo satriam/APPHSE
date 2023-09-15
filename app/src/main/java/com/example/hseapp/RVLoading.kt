@@ -29,6 +29,7 @@ class RVLoading : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_rvloading)
         getpref()
+        sendSQLiteDataToApi()
         swipeRefreshLayout = findViewById(R.id.swipe)
         swipeRefreshLayout.setOnRefreshListener {
             getpref()
@@ -51,6 +52,7 @@ class RVLoading : AppCompatActivity() {
         val db = dbHelper.writableDatabase
 
         val dataList = dbHelper.getAllData()
+        Log.d("DATA LIST",dataList.toString())
         val idList = dbHelper.getAllIds()
 
         if (dataList.isNotEmpty()) {
@@ -88,6 +90,8 @@ class RVLoading : AppCompatActivity() {
         db.close()
     }
 
+
+
     private fun getpref(){
         val apiClient = RetrofitInstance.Create(this)
         val apiService = apiClient.getrecent()
@@ -100,6 +104,7 @@ class RVLoading : AppCompatActivity() {
                 // Tangani respons sukses
                 if (response.isSuccessful) {
                     val dataMe = response.body()
+
                     if (dataMe != null) {
                         // Tambahkan semua objek Data ke dalam listData
                         listData.addAll(dataMe.data)
