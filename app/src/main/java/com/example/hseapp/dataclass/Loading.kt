@@ -11,5 +11,6 @@ data class Data(
 
 data class Attributes(
     val tanggal: String,
-    val userId: Int
+    val userId: Int,
+    val image1 : String,
 )

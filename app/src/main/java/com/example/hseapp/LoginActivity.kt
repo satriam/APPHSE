@@ -27,6 +27,12 @@ class LoginActivity : AppCompatActivity() {
         onStart()
         checklogin()
         auth()
+
+        val pengaduan = findViewById<Button>(R.id.pengaduan)
+        pengaduan.setOnClickListener{
+            val intent = Intent(this@LoginActivity, PengaduanActivity::class.java)
+            startActivity(intent)
+        }
     }
     private fun checklogin(){
         if (sessionManager.isLogin()!! ){

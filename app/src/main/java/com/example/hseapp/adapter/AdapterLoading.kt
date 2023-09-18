@@ -1,8 +1,10 @@
 package com.example.hseapp.adapter
 
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hseapp.R
@@ -22,6 +24,7 @@ class AdapterLoading(private val dataList: List<Data>): RecyclerView.Adapter<Ada
 
         holder.tanggal.text = data.attributes.tanggal
         holder.lokasi.text = "User ID: ${data.attributes.userId}"
+//        holder.img.setImageURI(Uri.parse(data.attributes.image1))
     }
 
     override fun getItemCount(): Int = dataList.size
@@ -30,6 +33,7 @@ class AdapterLoading(private val dataList: List<Data>): RecyclerView.Adapter<Ada
         val context = itemView.context
         val tanggal: TextView = itemView.findViewById(R.id.tanggal)
         val lokasi: TextView = itemView.findViewById(R.id.tv_lokasi)
-        val status: TextView = itemView.findViewById(R.id.tv_status)
+        val img :ImageView = itemView.findViewById(R.id.tv_img)
+
     }
 }

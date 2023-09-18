@@ -71,7 +71,8 @@ class DBHelper(context: Context) :
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-
+        db.execSQL("DROP TABLE IF EXISTS jawaban")
+        onCreate(db)
     }
 
     fun getAllData(): List<AnswerEntity> {

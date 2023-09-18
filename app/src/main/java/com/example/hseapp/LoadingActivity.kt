@@ -1,10 +1,13 @@
 package com.example.hseapp
+import android.annotation.TargetApi
 import android.app.Activity
 import android.content.ContentValues
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
@@ -43,31 +46,35 @@ class LoadingActivity : AppCompatActivity() {
     private lateinit var btnTakePhoto: Button
     lateinit var imageView: ImageView
     lateinit var imageView2: ImageView
-    lateinit var button: Button
-    lateinit var button2: Button
+//    lateinit var button: Button
+//    lateinit var button2: Button
     private val pickImage = 100
     private val pickImage2 = 101
     private var imageUri: Uri? = null
     private var imageUri2: Uri? = null
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_loading)
         save()
+
+
         imageView = findViewById(R.id.imageView)
-        button = findViewById(R.id.btnSelectImage)
-        button.setOnClickListener {
+        imageView.setOnClickListener{
             val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
             startActivityForResult(gallery, pickImage)
         }
-        imageView2 = findViewById(R.id.imageView2)
-        button2 = findViewById(R.id.btnSelectImage2)
-        button2.setOnClickListener {
-            val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
-            startActivityForResult(gallery, pickImage2)
-        }
+
+//        imageView2 = findViewById(R.id.imageView2)
+//        button2 = findViewById(R.id.btnSelectImage2)
+//        button2.setOnClickListener {
+//            val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
+//            startActivityForResult(gallery, pickImage2)
+//        }
     }
 
+    @TargetApi(Build.VERSION_CODES.M)
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -76,7 +83,7 @@ class LoadingActivity : AppCompatActivity() {
                 pickImage -> {
                     imageUri = data?.data
                     imageView.setImageURI(imageUri)
-                    Log.d("TEST", imageView.toString())
+                    Log.d("TEST", imageUri.toString())
                 }
 
                 pickImage2 -> {
@@ -166,10 +173,17 @@ class LoadingActivity : AppCompatActivity() {
             val update = sessionManager.getid()
 
 
+            val gambar = imageUri.toString()
+
+            
+
+
 
             if (loading.isEmpty()) {
                 etloading.setError("Nama Loading Tidak boleh Kosong")
-            } else {
+            }else if (pengawas.isEmpty()) {
+            etpengawas.setError("Nama Pengawas Tidak boleh Kosong")
+             }else {
 
 
                 //content values
@@ -180,6 +194,7 @@ class LoadingActivity : AppCompatActivity() {
                 contentValues.put("nama_loading", loading)
                 contentValues.put("created_by_id", nama)
                 contentValues.put("updated_by_id", nama)
+                contentValues.put("Image1",  gambar);
 
                 for (i in 0 until kondisi.size) {
                     val checkBox = findViewById<MaterialCheckBox>(kondisi[i])
@@ -218,6 +233,18 @@ class LoadingActivity : AppCompatActivity() {
                     Toast.makeText(this, "Gagal menyimpan data", Toast.LENGTH_SHORT).show()
                 }
             }
+        }
+    }
+
+    private fun saveImageLocally(imageData: ByteArray, imageName: String): String? {
+        try {
+            val fileOutputStream = openFileOutput(imageName, Context.MODE_PRIVATE)
+            fileOutputStream.write(imageData)
+            fileOutputStream.close()
+            return getFileStreamPath(imageName).absolutePath
+        } catch (e: Exception) {
+            e.printStackTrace()
+            return null
         }
     }
 }
