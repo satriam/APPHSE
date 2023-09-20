@@ -38,6 +38,8 @@ class MainActivity : AppCompatActivity() {
         slider()
         fitur()
 
+
+
     }
 
     private fun fiturout() {

@@ -5,9 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DumpingActivity">
-
     <ImageView
+        android:id="@+id/imagetest"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/imagetest"/>
+        android:layout_height="match_parent"
+        android:src="@drawable/noimage"
+        />
 </LinearLayout>

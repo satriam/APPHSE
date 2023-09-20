@@ -36,8 +36,7 @@ class RVLoading : AppCompatActivity() {
             sendSQLiteDataToApi()
             swipeRefreshLayout.isRefreshing=false
         }
-
-
+        
         val actionbutton = findViewById<FloatingActionButton>(R.id.fab)
 
         actionbutton.setOnClickListener {
@@ -49,7 +48,7 @@ class RVLoading : AppCompatActivity() {
 
     private fun sendSQLiteDataToApi() {
         val dbHelper = DBHelper(this)
-        val db = dbHelper.writableDatabase
+        val db = dbHelper.readableDatabase
 
         val dataList = dbHelper.getAllData()
         Log.d("DATA LIST",dataList.toString())
@@ -104,6 +103,7 @@ class RVLoading : AppCompatActivity() {
                 // Tangani respons sukses
                 if (response.isSuccessful) {
                     val dataMe = response.body()
+                    Log.e("datame",dataMe.toString())
 
                     if (dataMe != null) {
                         // Tambahkan semua objek Data ke dalam listData

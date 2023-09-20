@@ -8,5 +8,8 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="yellow">#FFC801</color>
+    <color name="utama">#FF6600</color>
+    <color name="biru">#5A69E5</color>
+    <color name="oren">#FF9148</color>
 
 </resources>

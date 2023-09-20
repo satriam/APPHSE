@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">HSE App</string>
+    <string name="app_name">SIPANDU</string>
 
     <string name="l1">Apakah Lebar Loading Point sesuai dengan parameter hingga pergerakan manuver dump truck aman sesuai jenis dump truck</string>
     <string name="l2">Apakah permukaan loading point rata dan bebas dari tumpahan material berserakan?</string>

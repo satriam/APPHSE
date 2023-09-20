@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="#e8e8f9">
+    android:background="#FFF8F4">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -104,21 +104,15 @@
                         android:layout_margin="5dp"
                         android:layout_weight="1"
                         android:background="@drawable/purple_top_button"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:elevation="2dp">
 
                         <ImageView
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="85dp"
                             android:layout_margin="10dp"
-                            app:srcCompat="@drawable/video_call" />
+                            app:srcCompat="@drawable/hauling" />
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="8dp"
-                            android:text="Hauling Road"
-                            android:textAlignment="center"
-                            android:textColor="#7182ef" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -130,21 +124,16 @@
                         android:layout_margin="5dp"
                         android:layout_weight="1"
                         android:background="@drawable/purple_top_button"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:elevation="2dp">
 
                         <ImageView
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="85dp"
                             android:layout_margin="10dp"
-                            app:srcCompat="@drawable/notification" />
+                            app:srcCompat="@drawable/dumping" />
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="8dp"
-                            android:text="Dumping Point"
-                            android:textAlignment="center"
-                            android:textColor="#7182ef"/>
+
                     </LinearLayout>
 
                     <LinearLayout
@@ -156,22 +145,15 @@
                         android:layout_margin="5dp"
                         android:layout_weight="1"
                         android:background="@drawable/purple_top_button"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:elevation="2dp">
 
                         <ImageView
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="85dp"
                             android:layout_margin="10dp"
-                            app:srcCompat="@drawable/voice_call" />
+                            app:srcCompat="@drawable/loading" />
 
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-
-                            android:layout_marginBottom="8dp"
-                            android:text="Loading Point"
-                            android:textAlignment="center"
-                            android:textColor="#7182ef" />
                     </LinearLayout>
                 </LinearLayout>
 
