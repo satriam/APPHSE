@@ -24,9 +24,19 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.net.Uri
+import android.os.Build
+import android.os.Environment
+import android.provider.Settings
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var sessionManager: SessionManager
+    private val PERMISSION_CODE = 123
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -38,6 +48,20 @@ class MainActivity : AppCompatActivity() {
         slider()
         fitur()
 
+        val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            if (!Environment.isExternalStorageManager()) {
+                // Jika belum memiliki izin MANAGE_EXTERNAL_STORAGE, buka layar pengaturan
+                val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
+                intent.data = Uri.parse("package:$packageName")
+                startActivity(intent)
+            }
+        } else {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, permissions, PERMISSION_CODE)
+            }
+        }
 
 
     }

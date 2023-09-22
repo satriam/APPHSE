@@ -10,7 +10,20 @@ data class Data(
 )
 
 data class Attributes(
-    val tanggal: String,
-    val userId: Int,
-    val image1 : String,
+    val gambar1: Gambar1,
+    val nama_pengawas: String,
+    val tanggal: String
+)
+
+data class Gambar1(
+    val `data`: DataX
+)
+
+data class DataX(
+    val attributes: AttributesX,
+    val id: Int
+)
+
+data class AttributesX(
+    val url: String
 )

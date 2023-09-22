@@ -87,11 +87,10 @@ val kondisi26: String?,
 val kodeBahaya26: String?,
 val keterangan26: String?,
 val tanggal: String?,
-val Nama_Pengawas: String?,
-    val Image1:String,
+val nama_pengawas: String?,
+val Image1:String,
+    val tindakan1:String,
 //    val Image2:String?
 
     )
-data class DataPayload(
-    val data: AnswerEntity // Use a list of AnswerEntity objects
-)
+

@@ -38,6 +38,8 @@ import java.sql.Types.NULL
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import android.Manifest
+import com.google.android.material.internal.EdgeToEdgeUtils
 
 
 class LoadingActivity : AppCompatActivity() {
@@ -51,6 +53,7 @@ class LoadingActivity : AppCompatActivity() {
     private var imageUri: Uri? = null
     private var imagePath: String? = null
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_loading)
@@ -59,8 +62,6 @@ class LoadingActivity : AppCompatActivity() {
             val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
             startActivityForResult(gallery, pickImage)
         }
-
-
         save()
     }
 
@@ -121,12 +122,7 @@ class LoadingActivity : AppCompatActivity() {
                 }
 
                 btn.setOnClickListener {
-                    if (imagePath != null) {
-                        // Gunakan imagePath untuk penyimpanan gambar ke database atau tugas lainnya
-                        Log.d("INFO", "imagePath: $imagePath")
-                    }else{
-                        Log.d("INFO", "tidak ada data")
-                    }
+
                     val dbHelper = DBHelper(this)
                     val db = dbHelper.writableDatabase
                     val kondisi = arrayOf(
@@ -177,7 +173,10 @@ class LoadingActivity : AppCompatActivity() {
                     //input id
                     sessionManager = SessionManager(this)
                     val update = sessionManager.getid()
-
+                    val pathgambar = imagePath.toString()
+                    //tindakan
+                    val ettindakan = findViewById<EditText>(R.id.tindakan)
+                    val tindakan = ettindakan.text.toString()
 
 
 
@@ -186,15 +185,18 @@ class LoadingActivity : AppCompatActivity() {
                     } else if (pengawas.isEmpty()) {
                         etpengawas.setError("Nama Pengawas Tidak boleh Kosong")
                     } else {
+
                         //content values
                         contentValues.put("Created_at", currentDateTime)
                         contentValues.put("shift", shift)
                         contentValues.put("nama_lokasi", lokasi)
                         contentValues.put("grup", grup)
                         contentValues.put("nama_loading", loading)
+                        contentValues.put("nama_pengawas", pengawas)
                         contentValues.put("created_by_id", nama)
                         contentValues.put("updated_by_id", nama)
-                        contentValues.put("Image1",imagePath)
+                        contentValues.put("Image1",pathgambar)
+                        contentValues.put("tindakan1",tindakan)
 
                         for (i in 0 until kondisi.size) {
                             val checkBox = findViewById<MaterialCheckBox>(kondisi[i])

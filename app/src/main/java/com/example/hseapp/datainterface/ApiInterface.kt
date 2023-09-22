@@ -1,17 +1,18 @@
 package com.example.hseapp.datainterface
 
 import com.example.hseapp.dao.AnswerEntity
-import com.example.hseapp.dao.DataPayload
 import com.example.hseapp.dataclass.DataMe
 import com.example.hseapp.dataclass.Loading
 import com.example.hseapp.dataclass.SignInBody
 import com.example.hseapp.dataclass.safetycampaign
+import okhttp3.MultipartBody
 import retrofit2.Call
-import retrofit2.http.Body
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
+import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.Part
 
 interface ApiInterface {
 
@@ -28,10 +29,14 @@ interface ApiInterface {
     @GET("/api/jenispertanyaans?populate[gambar][fields][1]=url")
     fun getsafetycampaign(): Call<safetycampaign>
 
+    @Multipart
     @POST("/api/loadings")
-    fun sendDataToApi(@Body data: DataPayload): Call<Void>
+    fun uploadDataWithImage(
+        @Part("data") data: List<AnswerEntity>,
+        @Part gambar1: MultipartBody.Part
+    ): Call<Void>
 
-    @GET("/api/loadings")
+    @GET("/api/loadings?populate=*")
     fun getrecent(): Call<Loading>
 
 

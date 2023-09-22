@@ -9,16 +9,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.hseapp.adapter.AdapterLoading
-import com.example.hseapp.dao.AnswerEntity
 import com.example.hseapp.dao.DBHelper
-import com.example.hseapp.dao.DataPayload
 import com.example.hseapp.dataclass.Data
 import com.example.hseapp.dataclass.Loading
 import com.example.hseapp.retrofit.RetrofitInstance
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.File
 
 class RVLoading : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
@@ -58,14 +60,20 @@ class RVLoading : AppCompatActivity() {
             val apiClient = RetrofitInstance.Create(this)
 
             for (data in dataList) {
-                val dataPayload = DataPayload(data)
-                val call = apiClient.sendDataToApi(dataPayload)
+                Log.d("SQLite Data", data.toString()) // Tambahkan log ini
+                val imageFile = File(data.Image1) // Ubah sesuai dengan properti yang sesuai di objek DataPayload
+                val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), imageFile)
+                val imageBody = MultipartBody.Part.createFormData("files.gambar1", imageFile.name, requestFile)
+                Log.d("body",imageFile.toString())
+
+
+                val call = apiClient.uploadDataWithImage(dataList,imageBody)
                 call.enqueue(object : retrofit2.Callback<Void> {
                     override fun onResponse(call: retrofit2.Call<Void>, response: retrofit2.Response<Void>) {
                         if (response.isSuccessful) {
                             for (id in idList) {
                                 val deleted = dbHelper.deleteDataById(id)
-                                Log.d("deleted",deleted.toString())
+                                Log.d("deleted", deleted.toString())
                             }
                         } else {
                             val errorBody = response.errorBody()?.string()
@@ -74,12 +82,12 @@ class RVLoading : AppCompatActivity() {
                             } else {
                                 "Tidak ada pesan kesalahan yang tersedia."
                             }
-                            Log.e("LoadingActivity", "Gagal mengirim data ke API. Pesan kesalahan: $errorMessage")
+                            Toast.makeText(this@RVLoading, "Gagal mengirim data ke API. Pesan kesalahan: $errorMessage", Toast.LENGTH_SHORT).show()
                         }
                     }
 
                     override fun onFailure(call: retrofit2.Call<Void>, t: Throwable) {
-                        Log.e("LoadingActivity", "Terjadi kesalahan dalam permintaan: ${t.message}")
+                        Toast.makeText(this@RVLoading, "Terjadi kesalahan dalam permintaan: ${t.message}", Toast.LENGTH_SHORT).show()
                     }
                 })
             }
@@ -87,6 +95,7 @@ class RVLoading : AppCompatActivity() {
             Toast.makeText(this, "Data sudah Update", Toast.LENGTH_SHORT).show()
         }
         db.close()
+
     }
 
 

@@ -1,6 +1,7 @@
 package com.example.hseapp.adapter
 
 import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,8 @@ import com.example.hseapp.R
 import com.example.hseapp.dao.AnswerEntity
 import com.example.hseapp.dataclass.Data
 import com.example.hseapp.dataclass.Loading
+import com.example.hseapp.retrofit.RetrofitInstance
+import com.squareup.picasso.Picasso
 import retrofit2.Callback
 
 class AdapterLoading(private val dataList: List<Data>): RecyclerView.Adapter<AdapterLoading.ViewHolderData>() {
@@ -23,17 +26,25 @@ class AdapterLoading(private val dataList: List<Data>): RecyclerView.Adapter<Ada
         val data = dataList[position]
 
         holder.tanggal.text = data.attributes.tanggal
-        holder.lokasi.text = "User ID: ${data.attributes.userId}"
-//        holder.img.setImageURI(Uri.parse(data.attributes.image1))
+        holder.lokasi.text = "${data.attributes.nama_pengawas}"
+
+        // Dapatkan URL gambar dari atribut yang sesuai dalam data
+        val imageUrl = RetrofitInstance.BASE_URL + data.attributes.gambar1?.data?.attributes?.url
+        val widthInPixels = 80  // Gantilah dengan ukuran lebar yang Anda inginkan dalam piksel
+        val heightInPixels = 80 // Gantilah dengan ukuran tinggi yang Anda inginkan dalam piksel
+
+        Picasso.get()
+            .load(Uri.parse(imageUrl)) // Konversi URL menjadi Uri jika perlu
+            .resize(widthInPixels, heightInPixels) // Atur ukuran lebar dan tinggi di sini
+            .centerCrop() // Atur cara tampilan gambar (misalnya: centerCrop, fit, dsb.)
+            .into(holder.img)
     }
 
     override fun getItemCount(): Int = dataList.size
 
     class ViewHolderData(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val context = itemView.context
         val tanggal: TextView = itemView.findViewById(R.id.tanggal)
         val lokasi: TextView = itemView.findViewById(R.id.tv_lokasi)
         val img :ImageView = itemView.findViewById(R.id.tv_img)
-
     }
 }
