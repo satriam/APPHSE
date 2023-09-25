@@ -13,6 +13,7 @@ import com.example.hseapp.dao.DBHelper
 import com.example.hseapp.dataclass.Data
 import com.example.hseapp.dataclass.Loading
 import com.example.hseapp.retrofit.RetrofitInstance
+import com.example.hseapp.retrofit.SessionManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -23,6 +24,7 @@ import retrofit2.Response
 import java.io.File
 
 class RVLoading : AppCompatActivity() {
+    private lateinit var sessionManager: SessionManager
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: AdapterLoading
     lateinit var swipeRefreshLayout: SwipeRefreshLayout
@@ -60,14 +62,18 @@ class RVLoading : AppCompatActivity() {
             val apiClient = RetrofitInstance.Create(this)
 
             for (data in dataList) {
-                Log.d("SQLite Data", data.toString()) // Tambahkan log ini
-                val imageFile = File(data.Image1) // Ubah sesuai dengan properti yang sesuai di objek DataPayload
+                val imageFile = File(data.Image1) //
+                val imageFile2 = File(data.Image2) //
                 val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), imageFile)
+                val requestFile2 = RequestBody.create("image/*".toMediaTypeOrNull(), imageFile2)
                 val imageBody = MultipartBody.Part.createFormData("files.gambar1", imageFile.name, requestFile)
-                Log.d("body",imageFile.toString())
+                val imageBody2 = MultipartBody.Part.createFormData("files.gambar2", imageFile.name, requestFile2)
 
 
-                val call = apiClient.uploadDataWithImage(dataList,imageBody)
+
+
+
+                val call = apiClient.uploadDataWithImage(dataList,imageBody,imageBody2)
                 call.enqueue(object : retrofit2.Callback<Void> {
                     override fun onResponse(call: retrofit2.Call<Void>, response: retrofit2.Response<Void>) {
                         if (response.isSuccessful) {
@@ -102,6 +108,10 @@ class RVLoading : AppCompatActivity() {
 
     private fun getpref(){
         val apiClient = RetrofitInstance.Create(this)
+        sessionManager = SessionManager(this)
+//        val id = sessionManager.getid()
+
+
         val apiService = apiClient.getrecent()
         val listData = ArrayList<Data>() // Menggunakan List<Data> bukan List<Loading>
         recyclerView = findViewById(R.id.rv_data)

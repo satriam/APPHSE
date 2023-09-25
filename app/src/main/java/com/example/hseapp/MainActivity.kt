@@ -26,6 +26,7 @@ import retrofit2.Response
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.media.Image
 import android.net.Uri
 import android.os.Build
 import android.os.Environment
@@ -68,7 +69,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun fiturout() {
         //out
-        val keluar = findViewById<ConstraintLayout>(R.id.LLI)
+        val keluar = findViewById<ImageView>(R.id.logout)
         keluar.setOnClickListener {
 
             val builder = AlertDialog.Builder(this)
@@ -138,9 +139,14 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this,RVLoading::class.java)
             startActivity(intent)
         }
-        val llst = findViewById<LinearLayout>(R.id.LLST)
+        val llst = findViewById<ConstraintLayout>(R.id.LLST)
         llst.setOnClickListener{
             val intent = Intent(this,safetyTalkActivity::class.java)
+            startActivity(intent)
+        }
+        val llp = findViewById<ConstraintLayout>(R.id.LLP)
+        llp.setOnClickListener{
+            val intent = Intent(this,PengaduanActivity::class.java)
             startActivity(intent)
         }
 

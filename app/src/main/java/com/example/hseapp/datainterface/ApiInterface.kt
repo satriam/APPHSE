@@ -13,6 +13,8 @@ import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
+import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ApiInterface {
 
@@ -33,9 +35,11 @@ interface ApiInterface {
     @POST("/api/loadings")
     fun uploadDataWithImage(
         @Part("data") data: List<AnswerEntity>,
-        @Part gambar1: MultipartBody.Part
+        @Part gambar1: MultipartBody.Part,
+        @Part gambar2: MultipartBody.Part
     ): Call<Void>
 
+//    @GET("/api/loadings?populate=*&[filters][createdBy][id][%24eq]=ids")
     @GET("/api/loadings?populate=*")
     fun getrecent(): Call<Loading>
 

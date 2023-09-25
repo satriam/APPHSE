@@ -25,7 +25,6 @@ import com.example.hseapp.dao.DBHelper
 import com.example.hseapp.dataclass.safetycampaign
 import com.example.hseapp.retrofit.RetrofitInstance
 import com.example.hseapp.retrofit.SessionManager
-import com.github.gcacace.signaturepad.views.SignaturePad
 import com.google.android.material.checkbox.MaterialCheckBox
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner
 import okhttp3.Call
@@ -38,8 +37,6 @@ import java.sql.Types.NULL
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
-import android.Manifest
-import com.google.android.material.internal.EdgeToEdgeUtils
 
 
 class LoadingActivity : AppCompatActivity() {
@@ -49,9 +46,13 @@ class LoadingActivity : AppCompatActivity() {
     private val ktEditTextList = mutableListOf<EditText>()
     private lateinit var sessionManager: SessionManager
     lateinit var imageView: ImageView
+    lateinit var imageView2: ImageView
     private val pickImage = 100
+    private val pickImage2 = 101
     private var imageUri: Uri? = null
+    private var imageUri2: Uri? = null
     private var imagePath: String? = null
+    private var imagePath2: String? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,6 +63,13 @@ class LoadingActivity : AppCompatActivity() {
             val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
             startActivityForResult(gallery, pickImage)
         }
+        imageView2 = findViewById(R.id.imageView2)
+        imageView2.setOnClickListener {
+            val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
+            startActivityForResult(gallery, pickImage2)
+        }
+
+
         save()
     }
 
@@ -94,6 +102,14 @@ class LoadingActivity : AppCompatActivity() {
 
                     }
                 }
+                pickImage2 -> {
+                    data?.data?.let { uri ->
+                        imageUri2 = uri
+                        imageView2.setImageURI(imageUri2)
+                        imagePath2 = getRealPathFromUri(uri)
+
+                    }
+                }
             }
         }
     }
@@ -114,8 +130,6 @@ class LoadingActivity : AppCompatActivity() {
                     ktEditTextList.add(kt)
 
                     ck.setOnCheckedChangeListener { _, isChecked ->
-                        // Ketika CheckBox dicentang, nonaktifkan EditText
-                        // Ketika CheckBox dinonaktifkan, aktifkan EditText
                         kd.isEnabled = !isChecked
                         kt.isEnabled = !isChecked
                     }
@@ -174,9 +188,13 @@ class LoadingActivity : AppCompatActivity() {
                     sessionManager = SessionManager(this)
                     val update = sessionManager.getid()
                     val pathgambar = imagePath.toString()
+                    val pathgambar2 = imagePath2.toString()
+                    Log.d("PATH GAMBAR2",pathgambar2)
                     //tindakan
                     val ettindakan = findViewById<EditText>(R.id.tindakan)
                     val tindakan = ettindakan.text.toString()
+                    val ettindakan2 = findViewById<EditText>(R.id.tindakan2)
+                    val tindakan2 = ettindakan2.text.toString()
 
 
 
@@ -196,7 +214,9 @@ class LoadingActivity : AppCompatActivity() {
                         contentValues.put("created_by_id", nama)
                         contentValues.put("updated_by_id", nama)
                         contentValues.put("Image1",pathgambar)
-                        contentValues.put("tindakan1",tindakan)
+                        contentValues.put("Image2",pathgambar2)
+                        contentValues.put("Tindakan1",tindakan)
+                        contentValues.put("Tindakan2",tindakan2)
 
                         for (i in 0 until kondisi.size) {
                             val checkBox = findViewById<MaterialCheckBox>(kondisi[i])

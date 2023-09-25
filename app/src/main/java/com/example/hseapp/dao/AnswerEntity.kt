@@ -89,7 +89,9 @@ val keterangan26: String?,
 val tanggal: String?,
 val nama_pengawas: String?,
 val Image1:String,
+val Image2:String,
     val tindakan1:String,
+    val tindakan2:String,
 //    val Image2:String?
 
     )

@@ -53,5 +53,57 @@
         <item>Fatigue</item>
     </string-array>
 
+    <string name="h1">Minimal 20% atau 3,5 kali lebar unit terbesar yang melintasi</string>
+    <string name="h2">Kurang dari 8% (batas maksimal 8-10%)</string>
+    <string name="h3">Dilakukan Pengerasan(Jalan Hauling)</string>
+    <string name="h4">Dilakukan Pemeliharaan Surface jalan (Rata,Tidak bergelombang) dan bebas dari batuan lepas</string>
+    <string name="h5">Setting Kemiringan jalan 2-3%</string>
+    <string name="h6">Radius lebih 90 derajat, rambu yang memadai harus tepasang</string>
+    <string name="h7">Superelevasi memadai/ tidak terbalik</string>
+    <string name="h8">Tinggi tanggul 3/4 dari tinggi ban unit yang lewat pad kedua sisi jalan</string>
+    <string name="h9">Posisi Material diperkuat</string>
+    <string name="h10">terdapat open channel pada daerah titik tertentu</string>
+    <string name="h11">50 meter dari persimpangan, tanggul tidak menghalangi pandangan bagi sarana LV</string>
+    <string name="h12">tersedia terbentuk drainase yang memadai</string>
+    <string name="h13">Jalan didesign untuk kemudahan dalam pengaliran air (Kemiringan jalan /Cross Fall)</string>
+    <string name="h14">terpasang, per 40 meter mining road,100 Meter(Hauling Road)</string>
+    <string name="h15">Terbuat dari bahan yang tidak mudah rusak yang dilengkapi dengan reflektor</string>
+    <string name="h16">terpasang Rambu lalu lintas yang memadai sesuai kondisi jalan</string>
+    <string name="h17">terpasang rambu informasi keselamatan lainnya(Baliho,Poster,dll)</string>
+    <string name="h18">Rambu Peringatan/Informasi terpasang dengan benar</string>
+    <string name="h19">Mampu menahan beban unit yang akan melintas(Kapasitas Beban Maksimum0</string>
+    <string name="h20">Tersedia devider/Middle islan dipersimpangan</string>
+    <string name="h21">Dilengkapi dengan rambu petunjuk arah dan larangan</string>
+    <string name="h22">Tegak lurus 90 derajat, tidak boleh lebih kecil dari 70 derajat</string>
+    <string name="h23">Pandangan Bebas/ tidak blind spot</string>
+    <string name="h24">Dipasang pada titik critical (persimpangan, area crowded)</string>
+    <string name="h25">Jumlah lampu dan cahaya memadai</string>
+    <string name="h26">Dalam kondisi dan berfungsi baik</string>
+    <string name="h27">Tersedia water truck dengan jumlah dan kapsitas memadai</string>
+    <string name="h28">Dilakukan penyiraman pengendalian debu secara kontinyu</string>
+    <string name="h29">Dibuat sesuai dengan kebutuhan dijalan hauling</string>
+    <string name="h30">Dalam kondisi yang baik dan dilengkapi degan rambu yang memadai</string>
+
+    <string name="D1">Apakah permukaan jalan dan dumpingan point rata dan bebas dari tumpahan material/bolder yang berserakan</string>
+    <string name="D2">Apakah dimensi lebar/panjang dumpingan point sesuai dengan parameter</string>
+    <string name="D3">Apakah patok survey sudah terpasang lengkap(toe,Crest,Boundry,Dumping,dll)</string>
+    <string name="D4">Apakah penempatan material sudah sesuai rencana/patok survey</string>
+    <string name="D5">Apakah terdapat Windraw/Tanggul, Acuan batasan Dumping</string>
+    <string name="D6">Apakah tersedia alat bantu buldozer untuk mendorong material</string>
+    <string name="D7">Apakah tersedia alat bantu grader/Dozer untuk merawat jalan di dumpingan area</string>
+    <string name="D8">Tidak ada mayerial dibuang diarea dumpingan plan</string>
+    <string name="D9">Tidak ada material Free Dump</string>
+    <string name="D10">Apakah area dumpingan bebas genangan air/tempat kantung air</string>
+    <string name="D11">Apakah di area dumpingan aman dari area longsor</string>
+    <string name="D12">Apakah dilakukan pengendalian debu rutin diarea dumpingan</string>
+    <string name="D13">Apakah area dumpingan aman dari jalur listrik/benda dari batas ketinggian</string>
+    <string name="D14">Apakah tersedia Rambu peringatan/informasi yang memadai</string>
+    <string name="D15">Apakah penerangan memadai untuk operasi malam(NAB :20 LUX)</string>
+    <string name="D16">Apakah saluran air dibuat dan berfungsi dengan baik</string>
+    <string name="D17">Apakah tersedia area tempat berkumpul darurat Emergency Assembly Point</string>
+    <string name="D18">Apakah Jembatan hopper/ stockpile tidak ada halang rintang dilalui</string>
+    <string name="D19">Apakah Jembatan Hopper ada Trafficman</string>
+    <string name="D20">Apakah Channel komunikasi sesuai dengan Rambu perintah</string>
+
 
 </resources>

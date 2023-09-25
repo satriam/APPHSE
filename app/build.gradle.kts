@@ -58,7 +58,7 @@ dependencies {
     implementation ("com.squareup.picasso:picasso:2.71828")
     implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
     implementation ("com.toptoche.searchablespinner:searchablespinnerlibrary:1.3.1")
-    implementation ("com.github.gcacace:signature-pad:1.3.1")
+
 
 
 }
