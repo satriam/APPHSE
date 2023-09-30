@@ -1,5 +1,6 @@
 package com.example.hseapp.datainterface
 
+import com.example.hseapp.dao.AnswerEntity
 import com.example.hseapp.dataclass.DataMe
 import com.example.hseapp.dataclass.Loading
 import com.example.hseapp.dataclass.SignInBody
@@ -31,7 +32,7 @@ interface ApiInterface {
     @Multipart
     @POST("/loading")
     fun uploadDataWithImage(
-        @Part("data") data: String,
+        @Part("data") data: List<AnswerEntity>,
         @Part gambar1: MultipartBody.Part,
         @Part gambar2: MultipartBody.Part
     ): Call<Void>

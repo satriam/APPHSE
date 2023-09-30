@@ -55,72 +55,54 @@ class RVLoading : AppCompatActivity() {
         val db = dbHelper.readableDatabase
 
         val dataList = dbHelper.getAllData()
+        Log.d("DATA LIST",dataList.toString())
         val idList = dbHelper.getAllIds()
 
         if (dataList.isNotEmpty()) {
             val apiClient = RetrofitInstance.Create(this)
 
             for (data in dataList) {
-                val gson = Gson()
-                val json = gson.toJson(data)
-                Log.d("DATAJSON",json.toString())
-                val imageFile1 = File(data.gambar1) // File gambar pertama
-                val imageFile2 = File(data.gambar2) // File gambar kedua
+                val imageFile = File(data.gambar1) //
+                val imageFile2 = File(data.gambar2) //
+                val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), imageFile)
+                val requestFile2 = RequestBody.create("image/*".toMediaTypeOrNull(), imageFile2)
+                val imageBody = MultipartBody.Part.createFormData("gambar1", imageFile.name, requestFile)
+                val imageBody2 = MultipartBody.Part.createFormData("gambar2", imageFile.name, requestFile2)
 
-                if (imageFile1.exists() && imageFile2.exists()) {
-                    val requestFile1 = RequestBody.create("image/*".toMediaTypeOrNull(), imageFile1)
-                    val requestFile2 = RequestBody.create("image/*".toMediaTypeOrNull(), imageFile2)
-                    val imageBody1 = MultipartBody.Part.createFormData("gambar1", imageFile1.name, requestFile1)
-                    val imageBody2 = MultipartBody.Part.createFormData("gambar2", imageFile2.name, requestFile2)
 
-                    val call = apiClient.uploadDataWithImage(json, imageBody1, imageBody2)
 
-                    call.enqueue(object : retrofit2.Callback<Void> {
-                        override fun onResponse(call: retrofit2.Call<Void>, response: retrofit2.Response<Void>) {
-                            if (response.isSuccessful) {
-                                // Jika pengiriman sukses, hapus data dari database SQLite
-                                for (id in idList) {
-//                                    val deleted = dbHelper.deleteDataById(id)
-//                                    Log.d("deleted", deleted.toString())
-                                }
-                            } else {
-                                val errorBody = response.errorBody()?.string()
-                                val errorMessage = if (!errorBody.isNullOrEmpty()) {
-                                    errorBody
-                                } else {
-                                    "Tidak ada pesan kesalahan yang tersedia."
-                                }
-                                Toast.makeText(
-                                    this@RVLoading,
-                                    "Gagal mengirim data ke API. Pesan kesalahan: $errorMessage",
-                                    Toast.LENGTH_SHORT
-                                ).show()
+
+
+                val call = apiClient.uploadDataWithImage(dataList,imageBody,imageBody2)
+                call.enqueue(object : retrofit2.Callback<Void> {
+                    override fun onResponse(call: retrofit2.Call<Void>, response: retrofit2.Response<Void>) {
+                        if (response.isSuccessful) {
+                            for (id in idList) {
+                                val deleted = dbHelper.deleteDataById(id)
+                                Log.d("deleted", deleted.toString())
                             }
+                        } else {
+                            val errorBody = response.errorBody()?.string()
+                            val errorMessage = if (!errorBody.isNullOrEmpty()) {
+                                errorBody
+                            } else {
+                                "Tidak ada pesan kesalahan yang tersedia."
+                            }
+                            Toast.makeText(this@RVLoading, "Gagal mengirim data ke API. Pesan kesalahan: $errorMessage", Toast.LENGTH_SHORT).show()
                         }
+                    }
 
-                        override fun onFailure(call: retrofit2.Call<Void>, t: Throwable) {
-                            Toast.makeText(
-                                this@RVLoading,
-                                "Terjadi kesalahan dalam permintaan: ${t.message}",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    })
-                } else {
-                    // Tidak ada file gambar yang ditemukan
-                    Toast.makeText(
-                        this@RVLoading,
-                        "File gambar tidak ditemukan untuk data dengan ID ",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
+                    override fun onFailure(call: retrofit2.Call<Void>, t: Throwable) {
+                        Toast.makeText(this@RVLoading, "Terjadi kesalahan dalam permintaan: ${t.message}", Toast.LENGTH_SHORT).show()
+                    }
+                })
             }
         } else {
             Toast.makeText(this, "Data sudah Update", Toast.LENGTH_SHORT).show()
         }
         db.close()
-    }
 
+    }
 
 
     private fun getpref(){
