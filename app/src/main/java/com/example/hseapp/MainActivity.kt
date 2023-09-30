@@ -91,31 +91,32 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun slider() {
-        //slider
+        // Slider
         val apiClient = RetrofitInstance.Create(this)
-        val call = apiClient.getsafetycampaign() // Menggunakan Retrofit untuk mendapatkan data dari API
+        val call = apiClient.getsafetycampaign()
 
-        call.enqueue(object : Callback<safetycampaign> {
-            override fun onResponse(call: Call<safetycampaign>, response: Response<safetycampaign>) {
+
+        call.enqueue(object : Callback<List<safetycampaign>> { // Updated the callback type to List<SafetyCampaign>
+            override fun onResponse(call: Call<List<safetycampaign>>, response: Response<List<safetycampaign>>) {
                 if (response.isSuccessful) {
-                    val safetyCampaign = response.body() // Mendapatkan data dari respons
-                    Log.d("testing",safetyCampaign.toString())
+                    val safetyCampaignList = response.body() // Get the list of SafetyCampaign
+
                     val imageslider = findViewById<ImageSlider>(R.id.slider)
                     val imageList = ArrayList<SlideModel>()
 
-                    // Mengisi imageList dengan data dari API
-                    for (campaignData in safetyCampaign?.data.orEmpty()) {
-                        val imageUrl =RetrofitInstance.BASE_URL + campaignData.attributes.gambar.data.attributes.url
-                        imageList.add(SlideModel(imageUrl))
+                    safetyCampaignList?.forEach { campaignData ->
+                        val imageUrl = RetrofitInstance.BASE_URL + campaignData.img_url
+                        imageList.add(SlideModel(imageUrl, campaignData.keterangan))
                     }
 
                     imageslider.setImageList(imageList)
                 } else {
+                    // Handle unsuccessful response
                 }
             }
 
-            override fun onFailure(call: Call<safetycampaign>, t: Throwable) {
-
+            override fun onFailure(call: Call<List<safetycampaign>>, t: Throwable) {
+                // Handle failure
             }
         })
     }
@@ -150,21 +151,23 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+
     }
     private fun getpref(){
         val apiClient = RetrofitInstance.Create(this)
         val apiService = apiClient.getUserLogin()
         val Nama = findViewById<TextView>(R.id.tvNama)
-        apiService.enqueue(object : Callback<DataMe> {
-            override fun onResponse(call: Call<DataMe>, response: Response<DataMe>) {
+        apiService.enqueue(object : Callback<List<DataMe>> {
+            override fun onResponse(call: Call<List<DataMe>>, response: Response<List<DataMe>>) {
                 // Tangani respons sukses
                 if (response.isSuccessful) {
-                    val dataMe = response.body()
+                    val dataMeList = response.body()
+                    val dataMe = dataMeList?.get(0)
+                    Log.d("datame",dataMe.toString())
                     if (dataMe != null) {
-                        val nama = dataMe.Nama
+                        val nama = dataMe.nama
                         Nama.text = nama
-
-                        val imageUrl = RetrofitInstance.BASE_URL + dataMe.ProfilePicture.url
+                        val imageUrl = RetrofitInstance.BASE_URL + dataMe.path_gambar
                         val profilePictureImageView = findViewById<ImageView>(R.id.imageView3)
                         Picasso.get().load(imageUrl).into(profilePictureImageView)
                     } else {
@@ -174,7 +177,8 @@ class MainActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<DataMe>, t: Throwable) {
+            override fun onFailure(call: Call<List<DataMe>>, t: Throwable) {
+                Log.d("datame",t.toString())
             }
         })
     }

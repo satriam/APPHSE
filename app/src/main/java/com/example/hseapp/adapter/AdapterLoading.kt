@@ -10,13 +10,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hseapp.R
 import com.example.hseapp.dao.AnswerEntity
-import com.example.hseapp.dataclass.Data
 import com.example.hseapp.dataclass.Loading
 import com.example.hseapp.retrofit.RetrofitInstance
 import com.squareup.picasso.Picasso
 import retrofit2.Callback
 
-class AdapterLoading(private val dataList: List<Data>): RecyclerView.Adapter<AdapterLoading.ViewHolderData>() {
+class AdapterLoading(private val dataList: ArrayList<Loading>): RecyclerView.Adapter<AdapterLoading.ViewHolderData>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderData {
         val layout = LayoutInflater.from(parent.context).inflate(R.layout.recent_loading, parent, false)
         return ViewHolderData(layout)
@@ -25,11 +24,11 @@ class AdapterLoading(private val dataList: List<Data>): RecyclerView.Adapter<Ada
     override fun onBindViewHolder(holder: ViewHolderData, position: Int) {
         val data = dataList[position]
 
-        holder.tanggal.text = data.attributes.tanggal
-        holder.lokasi.text = "${data.attributes.nama_pengawas}"
+        holder.tanggal.text = data.created_at
+        holder.lokasi.text = data.nama_lokasi
 
         // Dapatkan URL gambar dari atribut yang sesuai dalam data
-        val imageUrl = RetrofitInstance.BASE_URL + data.attributes.gambar1?.data?.attributes?.url
+        val imageUrl = RetrofitInstance.BASE_URL + data.img_url_1
         val widthInPixels = 80  // Gantilah dengan ukuran lebar yang Anda inginkan dalam piksel
         val heightInPixels = 80 // Gantilah dengan ukuran tinggi yang Anda inginkan dalam piksel
 

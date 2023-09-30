@@ -10,11 +10,11 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.hseapp.adapter.AdapterLoading
 import com.example.hseapp.dao.DBHelper
-import com.example.hseapp.dataclass.Data
 import com.example.hseapp.dataclass.Loading
 import com.example.hseapp.retrofit.RetrofitInstance
 import com.example.hseapp.retrofit.SessionManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.gson.Gson
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -55,53 +55,70 @@ class RVLoading : AppCompatActivity() {
         val db = dbHelper.readableDatabase
 
         val dataList = dbHelper.getAllData()
-        Log.d("DATA LIST",dataList.toString())
         val idList = dbHelper.getAllIds()
 
         if (dataList.isNotEmpty()) {
             val apiClient = RetrofitInstance.Create(this)
 
             for (data in dataList) {
-                val imageFile = File(data.Image1) //
-                val imageFile2 = File(data.Image2) //
-                val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), imageFile)
-                val requestFile2 = RequestBody.create("image/*".toMediaTypeOrNull(), imageFile2)
-                val imageBody = MultipartBody.Part.createFormData("files.gambar1", imageFile.name, requestFile)
-                val imageBody2 = MultipartBody.Part.createFormData("files.gambar2", imageFile.name, requestFile2)
+                val gson = Gson()
+                val json = gson.toJson(data)
+                Log.d("DATAJSON",json.toString())
+                val imageFile1 = File(data.gambar1) // File gambar pertama
+                val imageFile2 = File(data.gambar2) // File gambar kedua
 
+                if (imageFile1.exists() && imageFile2.exists()) {
+                    val requestFile1 = RequestBody.create("image/*".toMediaTypeOrNull(), imageFile1)
+                    val requestFile2 = RequestBody.create("image/*".toMediaTypeOrNull(), imageFile2)
+                    val imageBody1 = MultipartBody.Part.createFormData("gambar1", imageFile1.name, requestFile1)
+                    val imageBody2 = MultipartBody.Part.createFormData("gambar2", imageFile2.name, requestFile2)
 
+                    val call = apiClient.uploadDataWithImage(json, imageBody1, imageBody2)
 
-
-
-                val call = apiClient.uploadDataWithImage(dataList,imageBody,imageBody2)
-                call.enqueue(object : retrofit2.Callback<Void> {
-                    override fun onResponse(call: retrofit2.Call<Void>, response: retrofit2.Response<Void>) {
-                        if (response.isSuccessful) {
-                            for (id in idList) {
-                                val deleted = dbHelper.deleteDataById(id)
-                                Log.d("deleted", deleted.toString())
-                            }
-                        } else {
-                            val errorBody = response.errorBody()?.string()
-                            val errorMessage = if (!errorBody.isNullOrEmpty()) {
-                                errorBody
+                    call.enqueue(object : retrofit2.Callback<Void> {
+                        override fun onResponse(call: retrofit2.Call<Void>, response: retrofit2.Response<Void>) {
+                            if (response.isSuccessful) {
+                                // Jika pengiriman sukses, hapus data dari database SQLite
+                                for (id in idList) {
+//                                    val deleted = dbHelper.deleteDataById(id)
+//                                    Log.d("deleted", deleted.toString())
+                                }
                             } else {
-                                "Tidak ada pesan kesalahan yang tersedia."
+                                val errorBody = response.errorBody()?.string()
+                                val errorMessage = if (!errorBody.isNullOrEmpty()) {
+                                    errorBody
+                                } else {
+                                    "Tidak ada pesan kesalahan yang tersedia."
+                                }
+                                Toast.makeText(
+                                    this@RVLoading,
+                                    "Gagal mengirim data ke API. Pesan kesalahan: $errorMessage",
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             }
-                            Toast.makeText(this@RVLoading, "Gagal mengirim data ke API. Pesan kesalahan: $errorMessage", Toast.LENGTH_SHORT).show()
                         }
-                    }
 
-                    override fun onFailure(call: retrofit2.Call<Void>, t: Throwable) {
-                        Toast.makeText(this@RVLoading, "Terjadi kesalahan dalam permintaan: ${t.message}", Toast.LENGTH_SHORT).show()
-                    }
-                })
+                        override fun onFailure(call: retrofit2.Call<Void>, t: Throwable) {
+                            Toast.makeText(
+                                this@RVLoading,
+                                "Terjadi kesalahan dalam permintaan: ${t.message}",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    })
+                } else {
+                    // Tidak ada file gambar yang ditemukan
+                    Toast.makeText(
+                        this@RVLoading,
+                        "File gambar tidak ditemukan untuk data dengan ID ",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
         } else {
             Toast.makeText(this, "Data sudah Update", Toast.LENGTH_SHORT).show()
         }
         db.close()
-
     }
 
 
@@ -109,24 +126,22 @@ class RVLoading : AppCompatActivity() {
     private fun getpref(){
         val apiClient = RetrofitInstance.Create(this)
         sessionManager = SessionManager(this)
-//        val id = sessionManager.getid()
-
 
         val apiService = apiClient.getrecent()
-        val listData = ArrayList<Data>() // Menggunakan List<Data> bukan List<Loading>
+        val listData = ArrayList<Loading>() // Menggunakan List<Data> bukan List<Loading>
         recyclerView = findViewById(R.id.rv_data)
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        apiService.enqueue(object : Callback<Loading> {
-            override fun onResponse(call: Call<Loading>, response: Response<Loading>) {
+        apiService.enqueue(object : Callback<ArrayList<Loading>> {
+            override fun onResponse(call: Call<ArrayList<Loading>>, response: Response<ArrayList<Loading>>) {
                 // Tangani respons sukses
                 if (response.isSuccessful) {
                     val dataMe = response.body()
-                    Log.e("datame",dataMe.toString())
+                    Log.e("DATA LOADING",dataMe.toString())
 
                     if (dataMe != null) {
                         // Tambahkan semua objek Data ke dalam listData
-                        listData.addAll(dataMe.data)
+                        dataMe?.let { listData.addAll(it) }
                         val adapterData = AdapterLoading(listData) // Gunakan List<Data>
                         recyclerView.adapter = adapterData
                     } else {
@@ -136,7 +151,8 @@ class RVLoading : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<Loading>, t: Throwable) {
+            override fun onFailure(call: Call<ArrayList<Loading>>, t: Throwable) {
+                Log.e("DATA LOADING",t.toString())
             }
         })
     }

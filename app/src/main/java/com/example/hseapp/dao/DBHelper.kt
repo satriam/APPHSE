@@ -84,7 +84,7 @@ class DBHelper(context: Context) :
         if (cursor.moveToFirst()) {
             do {
                 val iduser = cursor.getInt(cursor.getColumnIndex("created_by_id"))
-                val iduser2 = cursor.getInt(cursor.getColumnIndex("updated_by_id"))
+//                val iduser2 = cursor.getInt(cursor.getColumnIndex("updated_by_id"))
                 val lokasi = cursor.getString(cursor.getColumnIndex("nama_lokasi"))
                 val loading = cursor.getString(cursor.getColumnIndex("nama_loading"))
                 val shift = cursor.getString(cursor.getColumnIndex("shift"))
@@ -175,7 +175,7 @@ class DBHelper(context: Context) :
                 val tindakan2 = cursor.getString(cursor.getColumnIndex("Tindakan2"))
 
 
-                val myData = AnswerEntity(lokasi,loading,shift,grup,iduser,iduser2,ck1,kode1,ket1,ck2,kode2,ket2,ck3,
+                val myData = AnswerEntity(lokasi,loading,shift,grup,iduser,ck1,kode1,ket1,ck2,kode2,ket2,ck3,
                     kode3,ket3,ck4,kode4,ket4,ck5,kode5,ket5,ck6,kode6,ket6,ck7,kode7,
                     ket7,ck8,kode8,ket8,ck9,kode9,ket9,ck10,kode10,ket10,ck11,kode11,
                     ket11,ck12,kode12,ket12,ck13,kode13,ket13,ck14,kode14,ket14,ck15,

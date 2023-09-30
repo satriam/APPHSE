@@ -1,6 +1,5 @@
 package com.example.hseapp.datainterface
 
-import com.example.hseapp.dao.AnswerEntity
 import com.example.hseapp.dataclass.DataMe
 import com.example.hseapp.dataclass.Loading
 import com.example.hseapp.dataclass.SignInBody
@@ -13,35 +12,33 @@ import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
-import retrofit2.http.Path
-import retrofit2.http.Query
 
 interface ApiInterface {
 
     @FormUrlEncoded
-    @POST("/api/auth/local")
+    @POST("/Login")
     fun signin(
-        @Field("identifier") identifier: String,
+        @Field("email_or_username") email_or_username: String,
         @Field("password") password: String
     ): Call<SignInBody>
 
-    @GET("/api/users/me?populate=*")
-    fun getUserLogin(): Call<DataMe>
+    @GET("/me")
+    fun getUserLogin(): Call<List<DataMe>>
 
-    @GET("/api/jenispertanyaans?populate[gambar][fields][1]=url")
-    fun getsafetycampaign(): Call<safetycampaign>
+    @GET("/safety")
+    fun getsafetycampaign(): Call<List<safetycampaign>>
 
     @Multipart
-    @POST("/api/loadings")
+    @POST("/loading")
     fun uploadDataWithImage(
-        @Part("data") data: List<AnswerEntity>,
+        @Part("data") data: String,
         @Part gambar1: MultipartBody.Part,
         @Part gambar2: MultipartBody.Part
     ): Call<Void>
 
 //    @GET("/api/loadings?populate=*&[filters][createdBy][id][%24eq]=ids")
-    @GET("/api/loadings?populate=*")
-    fun getrecent(): Call<Loading>
+    @GET("/Loading/tampil")
+    fun getrecent(): Call<ArrayList<Loading>>
 
 
 

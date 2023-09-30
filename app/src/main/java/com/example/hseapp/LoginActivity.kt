@@ -75,8 +75,8 @@ class LoginActivity : AppCompatActivity() {
                             val intent = Intent(this@LoginActivity, MainActivity::class.java)
                             startActivity(intent)
                             finish()
-                            sessionManager.saveAuthToken(loginresponse.jwt)
-                            sessionManager.saveId(loginresponse.user.id)
+                            sessionManager.saveAuthToken(loginresponse.token)
+                            sessionManager.saveId(loginresponse.id)
                             sessionManager.setLoggin(true)
                         }
                     }else{
