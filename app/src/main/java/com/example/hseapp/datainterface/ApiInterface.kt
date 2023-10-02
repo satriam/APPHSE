@@ -1,6 +1,8 @@
 package com.example.hseapp.datainterface
 
 import com.example.hseapp.dao.AnswerEntity
+import com.example.hseapp.dao.DumpingEntity
+import com.example.hseapp.dao.HaulingEntity
 import com.example.hseapp.dataclass.DataMe
 import com.example.hseapp.dataclass.Loading
 import com.example.hseapp.dataclass.SignInBody
@@ -37,9 +39,30 @@ interface ApiInterface {
         @Part gambar2: MultipartBody.Part
     ): Call<Void>
 
-//    @GET("/api/loadings?populate=*&[filters][createdBy][id][%24eq]=ids")
     @GET("/Loading/tampil")
     fun getrecent(): Call<ArrayList<Loading>>
+
+    @Multipart
+    @POST("/dumping")
+    fun Dumpingupload(
+        @Part("data") data: List<DumpingEntity>,
+        @Part gambar1: MultipartBody.Part,
+        @Part gambar2: MultipartBody.Part
+    ): Call<Void>
+
+    @GET("/Dumping/tampil")
+    fun getDumping(): Call<ArrayList<Loading>>
+
+    @Multipart
+    @POST("/hauling")
+    fun Haulingupload(
+        @Part("data") data: List<HaulingEntity>,
+        @Part gambar1: MultipartBody.Part,
+        @Part gambar2: MultipartBody.Part
+    ): Call<Void>
+
+    @GET("/Hauling/tampil")
+    fun getHauling(): Call<ArrayList<Loading>>
 
 
 

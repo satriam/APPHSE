@@ -189,7 +189,6 @@ class LoadingActivity : AppCompatActivity() {
                     val update = sessionManager.getid()
                     val pathgambar = imagePath.toString()
                     val pathgambar2 = imagePath2.toString()
-                    Log.d("PATH GAMBAR2",pathgambar2)
                     //tindakan
                     val ettindakan = findViewById<EditText>(R.id.tindakan)
                     val tindakan = ettindakan.text.toString()
@@ -212,7 +211,6 @@ class LoadingActivity : AppCompatActivity() {
                         contentValues.put("nama_loading", loading)
                         contentValues.put("nama_pengawas", pengawas)
                         contentValues.put("created_by_id", nama)
-                        contentValues.put("updated_by_id", nama)
                         contentValues.put("Image1",pathgambar)
                         contentValues.put("Image2",pathgambar2)
                         contentValues.put("Tindakan1",tindakan)

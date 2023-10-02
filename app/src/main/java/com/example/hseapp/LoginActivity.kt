@@ -67,10 +67,13 @@ class LoginActivity : AppCompatActivity() {
 
                     Log.d("login",loginresponse.toString())
 
-                    if (loginresponse != null) {
+                    if(loginresponse?.status == 400){
                         progressBar.visibility = View.GONE
+                        showAlertDialog("GAGAL", "AKUN BELUM DIAKTIFKAN!\nHubungi admin! "){
 
-
+                        }
+                    } else if (loginresponse != null) {
+                        progressBar.visibility = View.GONE
                         showAlertDialog("Login Berhasil", "Selamat datang") {
                             val intent = Intent(this@LoginActivity, MainActivity::class.java)
                             startActivity(intent)

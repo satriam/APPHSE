@@ -125,13 +125,13 @@ class MainActivity : AppCompatActivity() {
         //hauling road
         val llhr = findViewById<LinearLayout>(R.id.LLHR)
         llhr.setOnClickListener{
-            val intent = Intent(this, HaulingActivity::class.java)
+            val intent = Intent(this, RVHauling::class.java)
             startActivity(intent)
         }
         //Dumping Point
         val lldp = findViewById<LinearLayout>(R.id.LLDP)
         lldp.setOnClickListener{
-            val intent = Intent(this, DumpingActivity::class.java)
+            val intent = Intent(this, RVDumping::class.java)
             startActivity(intent)
         }
         //loading
@@ -157,6 +157,7 @@ class MainActivity : AppCompatActivity() {
         val apiClient = RetrofitInstance.Create(this)
         val apiService = apiClient.getUserLogin()
         val Nama = findViewById<TextView>(R.id.tvNama)
+        val Pegawai = findViewById<TextView>(R.id.tvNoPeg)
         apiService.enqueue(object : Callback<List<DataMe>> {
             override fun onResponse(call: Call<List<DataMe>>, response: Response<List<DataMe>>) {
                 // Tangani respons sukses
@@ -166,7 +167,9 @@ class MainActivity : AppCompatActivity() {
                     Log.d("datame",dataMe.toString())
                     if (dataMe != null) {
                         val nama = dataMe.nama
+                        val nopeg = dataMe.nomor_pegawai
                         Nama.text = nama
+                        Pegawai.text = nopeg
                         val imageUrl = RetrofitInstance.BASE_URL + dataMe.path_gambar
                         val profilePictureImageView = findViewById<ImageView>(R.id.imageView3)
                         Picasso.get().load(imageUrl).into(profilePictureImageView)

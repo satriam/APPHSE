@@ -88,10 +88,10 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Nama Loading">
+                    android:hint="Nama Hauling">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/NamaLoading"
+                        android:id="@+id/NamaHauling"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
