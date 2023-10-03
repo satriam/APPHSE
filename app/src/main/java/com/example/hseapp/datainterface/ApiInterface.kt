@@ -8,6 +8,7 @@ import com.example.hseapp.dataclass.Loading
 import com.example.hseapp.dataclass.SignInBody
 import com.example.hseapp.dataclass.safetycampaign
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -15,6 +16,7 @@ import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
+import java.time.LocalDateTime
 
 interface ApiInterface {
 
@@ -64,6 +66,19 @@ interface ApiInterface {
     @GET("/Hauling/tampil")
     fun getHauling(): Call<ArrayList<Loading>>
 
+    @Multipart
+    @POST("/pengaduan")
+    fun Pengaduan(
+        @Part("nama") nama: RequestBody,
+        @Part("lokasi_kejadian") lokasi: RequestBody,
+        @Part("kronologi") kronologi: RequestBody,
+        @Part("perusahaan") perusahaan: RequestBody,
+        @Part("unit") unit: RequestBody,
+        @Part("nama_orang") nama_orang: RequestBody,
+        @Part("nomorhp") nomorhp: RequestBody,
+        @Part("tanggal") tanggal: RequestBody,
+        @Part file: MultipartBody.Part
+    ): Call<Void>
 
 
 }

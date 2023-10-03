@@ -7,6 +7,7 @@ import android.content.SharedPreferences
 import java.sql.Types.NULL
 
 
+
 class SessionManager(context: Context){
     val PRIVATE_MODE = 0
     private val IS_LOGIN = "is_login"
@@ -44,4 +45,6 @@ class SessionManager(context: Context){
         editor?.clear()
         editor?.commit()
     }
+
+
 }

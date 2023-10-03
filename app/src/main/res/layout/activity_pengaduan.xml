@@ -139,16 +139,56 @@
             android:layout_height="match_parent"/>
     </com.google.android.material.textfield.TextInputLayout>
 
-    <ImageView
-        android:id="@+id/gmbrpengaduan"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:src="@drawable/noimage"
-        android:scaleType="fitCenter"
-        android:layout_gravity="center"
-        />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/lhp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        app:boxStrokeColor="@color/yellow"
+        app:hintTextColor="@color/yellow"
+        android:hint="Nomor Hp">
 
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/NomorHp"
+            style="@style/LoginTextInputInnerFieldStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="phone"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/lurl"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:hint="Url"
+            android:layout_marginRight="10dp"
+            app:boxStrokeColor="@color/yellow"
+            app:hintTextColor="@color/yellow">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/urlet"
+                style="@style/LoginTextInputInnerFieldStyle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:enabled="false"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/btnfile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Input File" />
+        <!-- Preview untuk video -->
+
+    </LinearLayout>
     <Spinner
         android:id="@+id/spinner"
         android:layout_width="match_parent"
