@@ -81,6 +81,7 @@ class LoginActivity : AppCompatActivity() {
                             sessionManager.saveAuthToken(loginresponse.token)
                             sessionManager.saveId(loginresponse.id)
                             sessionManager.setLoggin(true)
+                            sessionManager.saverole(loginresponse.role)
                         }
                     }else{
                         progressBar.visibility = View.GONE

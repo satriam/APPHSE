@@ -46,5 +46,14 @@ class SessionManager(context: Context){
         editor?.commit()
     }
 
+    fun saverole(Role:String){
+        val editor=prefs.edit()
+        editor.putString("Role",Role)
+        editor.apply()
+    }
+    fun getRole(): String? {
+        return prefs?.getString("Role", "")
+    }
+
 
 }

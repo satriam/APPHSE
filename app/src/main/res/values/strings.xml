@@ -47,10 +47,18 @@
     </string-array>
 
     <string-array name="aduan">
+        <item>Jenis Pengaduan</item>
         <item>Attitude</item>
         <item>Disiplin</item>
         <item>Pelanggaran</item>
         <item>Fatigue</item>
+    </string-array>
+    <string-array name="mitra">
+        <item>Mitra</item>
+        <item>Sumi Gita Jaya</item>
+        <item>Rifansi Dwi Putra</item>
+        <item>Prima Indojaya Mandiri</item>
+        <item>Rehandling</item>
     </string-array>
 
     <string name="h1">Minimal 20% atau 3,5 kali lebar unit terbesar yang melintasi</string>

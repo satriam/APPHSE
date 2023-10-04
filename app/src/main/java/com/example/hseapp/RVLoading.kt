@@ -75,7 +75,7 @@ class RVLoading : AppCompatActivity() {
                         if (response.isSuccessful) {
                             for (id in idList) {
                                 val deleted = dbHelper.deleteDataById(id)
-                                Log.d("deleted", deleted.toString())
+//                                Log.d("deleted", deleted.toString())
                             }
                         } else {
                             val errorBody = response.errorBody()?.string()

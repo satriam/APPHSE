@@ -20,6 +20,7 @@ import java.util.Calendar
 import androidx.annotation.RequiresApi
 import com.example.hseapp.retrofit.RetrofitInstance
 import com.example.hseapp.retrofit.SessionManager
+import com.toptoche.searchablespinnerlibrary.SearchableSpinner
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -170,6 +171,7 @@ class PengaduanActivity : AppCompatActivity(), View.OnClickListener {
         val nmunit = Nmunit.text.toString()
         val nmorg = Nmorg.text.toString()
         val NomorHp = NomorHp.text.toString()
+        val grup = spinner.selectedItem.toString()
 
         if (nm.isEmpty()){
             nama.setError("Nama Tidak boleh Kosong")
@@ -183,6 +185,8 @@ class PengaduanActivity : AppCompatActivity(), View.OnClickListener {
             Nmunit.setError("Nama Unit Tidak boleh Kosong")
         }else if (nmorg.isEmpty()){
             Nmorg.setError("Nama Orang Tidak boleh Kosong")
+        }else if(grup=="Jenis Pengaduan"){
+            Toast.makeText(this@PengaduanActivity, "Pilih Jenis Pengaduan", Toast.LENGTH_SHORT).show()
         }else{
             action()
         }
@@ -213,6 +217,7 @@ class PengaduanActivity : AppCompatActivity(), View.OnClickListener {
         val unit = RequestBody.create("text/plain".toMediaTypeOrNull(), Nmunit.text.toString())
         val orang = RequestBody.create("text/plain".toMediaTypeOrNull(), Nmorg.text.toString())
         val hp = RequestBody.create("text/plain".toMediaTypeOrNull(), NomorHp.text.toString())
+        val jenis = RequestBody.create("text/plain".toMediaTypeOrNull(), spinner.selectedItem.toString())
         val tanggal = RequestBody.create("text/plain".toMediaTypeOrNull(), dateTimeString)
 
 
@@ -220,7 +225,7 @@ class PengaduanActivity : AppCompatActivity(), View.OnClickListener {
 
         Log.d("date",dateTimeString.toString())
         val sendData = apiClient.Pengaduan(
-            nama, lokasi,kronologi,perusahaan,unit,orang,hp, tanggal, imageBody
+            nama, lokasi,kronologi,perusahaan,unit,orang,hp,jenis,tanggal, imageBody
         )
         sessionManager = SessionManager(this)
         sendData.enqueue(object : retrofit2.Callback<Void> {

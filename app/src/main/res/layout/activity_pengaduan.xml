@@ -1,36 +1,132 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PengaduanActivity"
-    android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="PENGADUAN"
         android:textAlignment="center"
         android:textStyle="bold"
-        android:textSize="28dp"
-        android:layout_marginTop="20dp"/>
+        android:textSize="28dp"/>
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        app:cardCornerRadius="8dp">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/lnama"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                app:boxStrokeColor="@color/yellow"
+                app:hintTextColor="@color/yellow"
+                android:hint="Nama Pelapor">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/namaet"
+                    style="@style/LoginTextInputInnerFieldStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/lhp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                app:boxStrokeColor="@color/yellow"
+                app:hintTextColor="@color/yellow"
+                android:hint="Nomor Hp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/NomorHp"
+                    style="@style/LoginTextInputInnerFieldStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="phone"/>
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        app:cardCornerRadius="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/lnama"
+        android:id="@+id/lnamaperusahaan"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         app:boxStrokeColor="@color/yellow"
         app:hintTextColor="@color/yellow"
-        android:hint="Nama">
+        android:hint="Nama Perusahaan">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/namaet"
+            android:id="@+id/nmperusahaanet"
             style="@style/LoginTextInputInnerFieldStyle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="match_parent"/>
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/lunit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        app:boxStrokeColor="@color/yellow"
+        app:hintTextColor="@color/yellow"
+        android:hint="Nama Unit">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/nmunitet"
+            style="@style/LoginTextInputInnerFieldStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/lorang"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        app:boxStrokeColor="@color/yellow"
+        app:hintTextColor="@color/yellow"
+        android:hint="Nama Pelanggar">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/nmoranget"
+            style="@style/LoginTextInputInnerFieldStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
     </com.google.android.material.textfield.TextInputLayout>
     <LinearLayout
         android:layout_width="wrap_content"
@@ -88,75 +184,6 @@
             android:layout_height="match_parent"/>
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/lnamaperusahaan"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        app:boxStrokeColor="@color/yellow"
-        app:hintTextColor="@color/yellow"
-        android:hint="Nama Perusahaan">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/nmperusahaanet"
-            style="@style/LoginTextInputInnerFieldStyle"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-    </com.google.android.material.textfield.TextInputLayout>
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/lunit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        app:boxStrokeColor="@color/yellow"
-        app:hintTextColor="@color/yellow"
-        android:hint="Nama Unit">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/nmunitet"
-            style="@style/LoginTextInputInnerFieldStyle"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-    </com.google.android.material.textfield.TextInputLayout>
-
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/lorang"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        app:boxStrokeColor="@color/yellow"
-        app:hintTextColor="@color/yellow"
-        android:hint="Nama Orang">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/nmoranget"
-            style="@style/LoginTextInputInnerFieldStyle"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/lhp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        app:boxStrokeColor="@color/yellow"
-        app:hintTextColor="@color/yellow"
-        android:hint="Nomor Hp">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/NomorHp"
-            style="@style/LoginTextInputInnerFieldStyle"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:inputType="phone"/>
-    </com.google.android.material.textfield.TextInputLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -166,7 +193,7 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/lurl"
-            android:layout_width="200dp"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:hint="Url"
             android:layout_marginRight="10dp"
@@ -184,7 +211,7 @@
         <Button
             android:id="@+id/btnfile"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
             android:text="Input File" />
         <!-- Preview untuk video -->
 
@@ -197,7 +224,9 @@
         android:layout_marginRight="10dp"
         android:padding="15dp"
         android:entries="@array/aduan"/>
+        </LinearLayout>
 
+    </androidx.cardview.widget.CardView>
     <Button
         android:id="@+id/Submit"
         android:layout_width="match_parent"
@@ -205,11 +234,5 @@
         android:layout_marginHorizontal="10dp"
         android:text="Submit Aduan"
         android:layout_gravity="center"/>
-
-
-
-
-
-
-
-</LinearLayout>
+    </LinearLayout>
+</ScrollView>

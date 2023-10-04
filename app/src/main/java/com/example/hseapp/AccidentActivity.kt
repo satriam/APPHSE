@@ -5,19 +5,18 @@ import android.os.Bundle
 import android.webkit.WebView
 import android.webkit.WebViewClient
 
-class safetyTalkActivity : AppCompatActivity() {
+class AccidentActivity : AppCompatActivity() {
     private lateinit var webView: WebView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_safety_talk)
-
-        webView = findViewById(R.id.webView)
+        setContentView(R.layout.activity_accident)
+        webView = findViewById(R.id.WvAccident)
         // WebViewClient allows you to handle
         // onPageFinished and override Url loading.
         webView.webViewClient = WebViewClient()
 
         // this will load the url of the website
-        webView.loadUrl("https://docs.google.com/forms/d/e/1FAIpQLSeIql00jo8WuztYs9FSO4w13p0mlsaZ_6j9pmmjiAlHBHSJqg/viewform")
+        webView.loadUrl("https://docs.google.com/forms/d/e/1FAIpQLSfR4cK-KwERm7UWdugWMVSa9KFlAUZXXXOihT97XbGthDinJg/viewform")
 
         // this will enable the javascript settings, it can also allow xss vulnerabilities
         webView.settings.javaScriptEnabled = true
@@ -26,7 +25,6 @@ class safetyTalkActivity : AppCompatActivity() {
         webView.settings.setSupportZoom(true)
     }
 
-    // if you press Back button this code will work
     override fun onBackPressed() {
         // if your webview can go back it will go back
         if (webView.canGoBack())
@@ -36,4 +34,4 @@ class safetyTalkActivity : AppCompatActivity() {
         else
             super.onBackPressed()
     }
-    }
+}

@@ -107,8 +107,7 @@ class RVDumping : AppCompatActivity() {
                     override fun onResponse(call: retrofit2.Call<Void>, response: retrofit2.Response<Void>) {
                         if (response.isSuccessful) {
                             for (id in idList) {
-//                                val deleted = dbHelper.deleteDataByIdDumping(id)
-//                                Log.d("deleted", deleted.toString())
+                                val deleted = dbHelper.deleteDataByIdDumping(id)
                             }
                         } else {
                             val errorBody = response.errorBody()?.string()

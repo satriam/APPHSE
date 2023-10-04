@@ -12,7 +12,7 @@ android {
         minSdk = 24
         targetSdk = 33
         versionCode = 1
-        versionName = "1.0"
+        versionName = "1.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -58,6 +58,7 @@ dependencies {
     implementation ("com.squareup.picasso:picasso:2.71828")
     implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
     implementation ("com.toptoche.searchablespinner:searchablespinnerlibrary:1.3.1")
+    implementation ("de.hdodenhof:circleimageview:2.2.0")
 
 
 

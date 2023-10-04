@@ -6,6 +6,7 @@ import com.example.hseapp.dao.HaulingEntity
 import com.example.hseapp.dataclass.DataMe
 import com.example.hseapp.dataclass.Loading
 import com.example.hseapp.dataclass.SignInBody
+import com.example.hseapp.dataclass.notif
 import com.example.hseapp.dataclass.safetycampaign
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -30,8 +31,19 @@ interface ApiInterface {
     @GET("/me")
     fun getUserLogin(): Call<List<DataMe>>
 
+    @GET("/Notification")
+    fun getnotif(): Call<List<notif>>
+
     @GET("/safety")
     fun getsafetycampaign(): Call<List<safetycampaign>>
+
+    @Multipart
+    @POST("/Safety")
+    fun uploadsafety(
+        @Part("keterangan") tanggal: RequestBody,
+        @Part("mitra") mitra: RequestBody,
+        @Part gambar1: MultipartBody.Part
+    ): Call<Void>
 
     @Multipart
     @POST("/loading")
@@ -76,6 +88,7 @@ interface ApiInterface {
         @Part("unit") unit: RequestBody,
         @Part("nama_orang") nama_orang: RequestBody,
         @Part("nomorhp") nomorhp: RequestBody,
+        @Part("jenis") jenis: RequestBody,
         @Part("tanggal") tanggal: RequestBody,
         @Part file: MultipartBody.Part
     ): Call<Void>
