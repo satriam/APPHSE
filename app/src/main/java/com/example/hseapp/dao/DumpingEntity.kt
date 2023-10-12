@@ -1,6 +1,7 @@
 package com.example.hseapp.dao
 
 data class DumpingEntity(
+    val id_dumping:Int?,
     val namalokasi: String?,
     val namadumping: String?,
     val shift: String?,

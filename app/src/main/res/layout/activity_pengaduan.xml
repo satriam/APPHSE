@@ -52,14 +52,14 @@
                 android:layout_marginRight="10dp"
                 app:boxStrokeColor="@color/yellow"
                 app:hintTextColor="@color/yellow"
-                android:hint="Nomor Hp">
+                android:hint="Email">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/NomorHp"
                     style="@style/LoginTextInputInnerFieldStyle"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:inputType="phone"/>
+                    android:inputType="textEmailAddress"/>
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
 

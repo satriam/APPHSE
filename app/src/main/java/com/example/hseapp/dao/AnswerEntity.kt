@@ -2,6 +2,7 @@ package com.example.hseapp.dao
 
 
 data class AnswerEntity(
+    val id_answer:Int?,
     val namalokasi: String?,
     val namaloading: String?,
     val shift: String?,

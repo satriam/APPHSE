@@ -9,7 +9,7 @@ import android.util.Log
 import com.google.gson.Gson
 import java.sql.Types.NULL
 
-class DBHelper(context: Context) :
+class  DBHelper(context: Context) :
     SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
     companion object {
@@ -143,6 +143,7 @@ class DBHelper(context: Context) :
 
         if (cursor.moveToFirst()) {
             do {
+                val id = cursor.getInt(cursor.getColumnIndex("id"))
                 val iduser = cursor.getInt(cursor.getColumnIndex("created_by_id"))
                 val lokasi = cursor.getString(cursor.getColumnIndex("nama_lokasi"))
                 val loading = cursor.getString(cursor.getColumnIndex("nama_loading"))
@@ -234,7 +235,7 @@ class DBHelper(context: Context) :
                 val tindakan2 = cursor.getString(cursor.getColumnIndex("Tindakan2"))
 
 
-                val myData = AnswerEntity(lokasi,loading,shift,grup,iduser,ck1,kode1,ket1,ck2,kode2,ket2,ck3,
+                val myData = AnswerEntity(id,lokasi,loading,shift,grup,iduser,ck1,kode1,ket1,ck2,kode2,ket2,ck3,
                     kode3,ket3,ck4,kode4,ket4,ck5,kode5,ket5,ck6,kode6,ket6,ck7,kode7,
                     ket7,ck8,kode8,ket8,ck9,kode9,ket9,ck10,kode10,ket10,ck11,kode11,
                     ket11,ck12,kode12,ket12,ck13,kode13,ket13,ck14,kode14,ket14,ck15,
@@ -259,6 +260,7 @@ class DBHelper(context: Context) :
 
         if (cursor.moveToFirst()) {
             do {
+                val id = cursor.getInt(cursor.getColumnIndex("id"))
                 val iduser = cursor.getInt(cursor.getColumnIndex("created_by_id"))
                 val lokasi = cursor.getString(cursor.getColumnIndex("nama_lokasi"))
                 val dumping = cursor.getString(cursor.getColumnIndex("nama_dumping"))
@@ -332,7 +334,7 @@ class DBHelper(context: Context) :
                 val tindakan2 = cursor.getString(cursor.getColumnIndex("Tindakan2"))
 
 
-                val myData = DumpingEntity(lokasi,dumping,shift,grup,iduser,ck1,kode1,ket1,ck2,kode2,ket2,ck3,
+                val myData = DumpingEntity(id,lokasi,dumping,shift,grup,iduser,ck1,kode1,ket1,ck2,kode2,ket2,ck3,
                     kode3,ket3,ck4,kode4,ket4,ck5,kode5,ket5,ck6,kode6,ket6,ck7,kode7,
                     ket7,ck8,kode8,ket8,ck9,kode9,ket9,ck10,kode10,ket10,ck11,kode11,
                     ket11,ck12,kode12,ket12,ck13,kode13,ket13,ck14,kode14,ket14,ck15,
@@ -354,6 +356,7 @@ class DBHelper(context: Context) :
 
         if (cursor.moveToFirst()) {
             do {
+                val id = cursor.getInt(cursor.getColumnIndex("id"))
                 val iduser = cursor.getInt(cursor.getColumnIndex("created_by_id"))
                 val lokasi = cursor.getString(cursor.getColumnIndex("nama_lokasi"))
                 val hauling = cursor.getString(cursor.getColumnIndex("nama_hauling"))
@@ -427,7 +430,7 @@ class DBHelper(context: Context) :
                 val tindakan2 = cursor.getString(cursor.getColumnIndex("Tindakan2"))
 
 
-                val myData = HaulingEntity(lokasi,hauling,shift,grup,iduser,ck1,kode1,ck2,kode2,ck3,
+                val myData = HaulingEntity(id,lokasi,hauling,shift,grup,iduser,ck1,kode1,ck2,kode2,ck3,
                     kode3,ck4,kode4,ck5,kode5,ck6,kode6,ck7,kode7,ck8,kode8,ck9,kode9,ck10,kode10,
                     ck11,kode11,ck12,kode12,ck13,kode13,ck14,kode14,ck15, kode15,ck16,kode16,ck17,
                     kode17,ck18,kode18,ck19,kode19,ck20,kode20,ck21,kode21,ck22,kode22,ck23,kode23,

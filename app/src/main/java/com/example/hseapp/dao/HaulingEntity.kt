@@ -1,6 +1,7 @@
 package com.example.hseapp.dao
 
 data class HaulingEntity(
+    val id_hauling:Int?,
     val namalokasi: String?,
     val namahauling: String?,
     val shift: String?,

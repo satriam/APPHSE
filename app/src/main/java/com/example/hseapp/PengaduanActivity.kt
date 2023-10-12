@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.textfield.TextInputEditText
 import java.util.Calendar
 import androidx.annotation.RequiresApi
+import com.example.hseapp.dataclass.response
 import com.example.hseapp.retrofit.RetrofitInstance
 import com.example.hseapp.retrofit.SessionManager
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner
@@ -130,7 +131,6 @@ class PengaduanActivity : AppCompatActivity(), View.OnClickListener {
                     data?.data?.let { uri ->
                         mediaUri = uri
                         val mediaPreview = findViewById<EditText>(R.id.urlet)
-//                        val imagePath = uri.toString()
                         imagePath = getRealPathFromUri(uri)
                         mediaPreview.setText(imagePath)
 
@@ -192,8 +192,6 @@ class PengaduanActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-
-
     private fun action(){
         val selectDateText = selectDate.text.toString()
         val selectTimeText = selectTime.text.toString()
@@ -220,45 +218,56 @@ class PengaduanActivity : AppCompatActivity(), View.OnClickListener {
         val jenis = RequestBody.create("text/plain".toMediaTypeOrNull(), spinner.selectedItem.toString())
         val tanggal = RequestBody.create("text/plain".toMediaTypeOrNull(), dateTimeString)
 
-
-
-
-        Log.d("date",dateTimeString.toString())
         val sendData = apiClient.Pengaduan(
             nama, lokasi,kronologi,perusahaan,unit,orang,hp,jenis,tanggal, imageBody
         )
         sessionManager = SessionManager(this)
-        sendData.enqueue(object : retrofit2.Callback<Void> {
-            override fun onResponse(call: retrofit2.Call<Void>, response: retrofit2.Response<Void>) {
-                if (response.isSuccessful) {
-                    Toast.makeText(this@PengaduanActivity, "BERHASIL MELAKUKAN PENGADUAN", Toast.LENGTH_SHORT).show()
-                    if (sessionManager.isLogin()!! ){
+        sendData.enqueue(object : retrofit2.Callback<response> {
+            override fun onResponse(call: retrofit2.Call<response>, response: retrofit2.Response<response>) {
+                val responseBody = response.body()
+                if (responseBody != null) {
+                    if (response.isSuccessful && responseBody.message == "berhasil menambahkan data" && responseBody.status == 200) {
+                        Toast.makeText(
+                            this@PengaduanActivity,
+                            "BERHASIL MELAKUKAN PENGADUAN",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        if (sessionManager.isLogin()!!) {
 
-                        val intent = Intent(this@PengaduanActivity, MainActivity::class.java).also {
-                            it.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                            val intent =
+                                Intent(this@PengaduanActivity, MainActivity::class.java).also {
+                                    it.flags =
+                                        Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                                }
+                            startActivity(intent)
+                            finish()
+                        } else {
+                            val intent =
+                                Intent(this@PengaduanActivity, LoginActivity::class.java).also {
+                                    it.flags =
+                                        Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                                }
+                            startActivity(intent)
+                            finish()
                         }
-                        startActivity(intent)
-                        finish()
-                    }else{
-                        val intent = Intent(this@PengaduanActivity, LoginActivity::class.java).also {
-                            it.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                        }
-                        startActivity(intent)
-                        finish()
-                    }
-                } else {
-                    val errorBody = response.errorBody()?.string()
-                    val errorMessage = if (!errorBody.isNullOrEmpty()) {
-                        errorBody
                     } else {
-                        "Tidak ada pesan kesalahan yang tersedia."
+                        val errorBody = response.errorBody()?.string()
+                        val errorMessage = if (!errorBody.isNullOrEmpty()) {
+                            errorBody
+                        } else {
+                            "Tidak ada pesan kesalahan yang tersedia."
+                        }
+                        Toast.makeText(
+                            this@PengaduanActivity,
+                            "Gagal mengirim data ke API. Pesan kesalahan: $errorMessage",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
-                    Toast.makeText(this@PengaduanActivity, "Gagal mengirim data ke API. Pesan kesalahan: $errorMessage", Toast.LENGTH_SHORT).show()
                 }
             }
 
-            override fun onFailure(call: retrofit2.Call<Void>, t: Throwable) {
-                Toast.makeText(this@PengaduanActivity, "Terjadi kesalahan dalam permintaan: ${t.message}", Toast.LENGTH_SHORT).show()
+            override fun onFailure(call: retrofit2.Call<response>, t: Throwable) {
+                Toast.makeText(this@PengaduanActivity, "Cek Koneksi!", Toast.LENGTH_SHORT).show()
             }
         })
 

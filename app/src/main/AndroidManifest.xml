@@ -10,13 +10,11 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
 
-
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
 
     <application
-
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -29,6 +27,19 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".DetailInspeksi"
+            android:exported="false" />
+        <activity
+            android:name=".HistoryDumping"
+            android:exported="false" />
+        <activity
+            android:name=".HistoryHauling"
+            android:exported="false" />
+        <activity
+            android:name=".adapter.AdapterHauling"
+            android:exported="false" />
+
+        <activity
             android:name=".AccidentActivity"
             android:exported="false" />
         <activity
@@ -40,12 +51,7 @@
         <activity
             android:name=".PromotifActivity"
             android:exported="false" />
-        <activity
-            android:name=".RVHauling"
-            android:exported="false" />
-        <activity
-            android:name=".RVDumping"
-            android:exported="false" />
+
         <activity
             android:name=".PengaduanActivity"
             android:exported="false" />

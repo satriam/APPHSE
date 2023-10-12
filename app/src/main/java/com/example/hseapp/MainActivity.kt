@@ -219,13 +219,13 @@ class MainActivity : AppCompatActivity() {
         //hauling road
         val llhr = findViewById<LinearLayout>(R.id.LLHR)
         llhr.setOnClickListener{
-            val intent = Intent(this, RVHauling::class.java)
+            val intent = Intent(this, HistoryHauling::class.java)
             startActivity(intent)
         }
         //Dumping Point
         val lldp = findViewById<LinearLayout>(R.id.LLDP)
         lldp.setOnClickListener{
-            val intent = Intent(this, RVDumping::class.java)
+            val intent = Intent(this, HistoryDumping::class.java)
             startActivity(intent)
         }
         //loading

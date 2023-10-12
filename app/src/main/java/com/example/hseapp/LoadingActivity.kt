@@ -1,39 +1,17 @@
 package com.example.hseapp
-import android.annotation.TargetApi
-import android.app.Activity
 import android.content.ContentValues
-import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
-import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import com.denzcoskun.imageslider.ImageSlider
-import com.denzcoskun.imageslider.models.SlideModel
-import com.example.hseapp.dao.AnswerEntity
+import com.example.hseapp.adapter.AdapterPending
 import com.example.hseapp.dao.DBHelper
-import com.example.hseapp.dataclass.safetycampaign
-import com.example.hseapp.retrofit.RetrofitInstance
 import com.example.hseapp.retrofit.SessionManager
 import com.google.android.material.checkbox.MaterialCheckBox
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner
-import okhttp3.Call
-import okhttp3.Callback
-import okhttp3.Response
-import okhttp3.ResponseBody
-import java.io.ByteArrayOutputStream
-import java.io.InputStream
-import java.sql.Types.NULL
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -53,6 +31,7 @@ class LoadingActivity : AppCompatActivity() {
     private var imageUri2: Uri? = null
     private var imagePath: String? = null
     private var imagePath2: String? = null
+    private lateinit var adapter: AdapterPending
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -83,7 +62,14 @@ class LoadingActivity : AppCompatActivity() {
         cursor?.use {
             val columnIndex = it.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
             it.moveToFirst()
-            return it.getString(columnIndex)
+            var path = it.getString(columnIndex)
+
+            // Hapus "file:/" jika ada dalam path
+            if (path.startsWith("file:/")) {
+                path = path.substring("file:/".length)
+            }
+
+            return path
         }
 
         return null
@@ -201,8 +187,11 @@ class LoadingActivity : AppCompatActivity() {
                         etloading.setError("Nama Loading Tidak boleh Kosong")
                     } else if (pengawas.isEmpty()) {
                         etpengawas.setError("Nama Pengawas Tidak boleh Kosong")
-                    } else {
-
+                    }  else if (imageUri==null) {
+                        Toast.makeText(this, "Gambar 1 tidak boleh kosong", Toast.LENGTH_SHORT).show()
+                    }else if (imageUri2==null) {
+                        Toast.makeText(this, "Gambar 2 tidak boleh kosong", Toast.LENGTH_SHORT).show()
+                    }else {
                         //content values
                         contentValues.put("Created_at", currentDateTime)
                         contentValues.put("shift", shift)
@@ -248,8 +237,8 @@ class LoadingActivity : AppCompatActivity() {
 
                         if (result != -1L) {
                             // Penyimpanan berhasil, tampilkan pesan toast
-                            Toast.makeText(this, "Data berhasil disimpan", Toast.LENGTH_SHORT)
-                                .show()
+                            val intent = Intent(this@LoadingActivity,RVLoading::class.java)
+                            startActivity(intent)
                             finish()
                         } else {
                             // Penyimpanan gagal, tampilkan pesan toast
@@ -258,5 +247,26 @@ class LoadingActivity : AppCompatActivity() {
                     }
                 }
             }
+    override fun onBackPressed() {
+        val builder = AlertDialog.Builder(this)
+        builder.setMessage("Apakah Anda yakin ingin keluar?")
+        builder.setCancelable(false)
+
+        builder.setPositiveButton("Ya") { dialog, which ->
+            // Tindakan yang akan diambil jika pengguna menekan "Ya"
+            val intent = Intent(this@LoadingActivity,RVLoading::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+        builder.setNegativeButton("Tidak") { dialog, which ->
+            // Tidak melakukan apa-apa jika pengguna menekan "Tidak"
+            dialog.dismiss() // Menutup dialog
+        }
+
+        val dialog = builder.create()
+        dialog.show()
+    }
+
 
         }

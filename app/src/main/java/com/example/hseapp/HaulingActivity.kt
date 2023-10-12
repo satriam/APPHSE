@@ -14,6 +14,7 @@ import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.example.hseapp.dao.DBHelper
 import com.example.hseapp.retrofit.SessionManager
 import com.google.android.material.checkbox.MaterialCheckBox
@@ -60,7 +61,14 @@ class HaulingActivity : AppCompatActivity() {
         cursor?.use {
             val columnIndex = it.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
             it.moveToFirst()
-            return it.getString(columnIndex)
+            var path = it.getString(columnIndex)
+
+            // Hapus "file:/" jika ada dalam path
+            if (path.startsWith("file:/")) {
+                path = path.substring("file:/".length)
+            }
+
+            return path
         }
 
         return null
@@ -170,7 +178,11 @@ class HaulingActivity : AppCompatActivity() {
                 ethauling.setError("Nama Hauling Tidak boleh Kosong")
             } else if (pengawas.isEmpty()) {
                 etpengawas.setError("Nama Pengawas Tidak boleh Kosong")
-            } else {
+            } else if (imageUri==null) {
+                Toast.makeText(this, "Gambar 1 tidak boleh kosong", Toast.LENGTH_SHORT).show()
+            }else if (imageUri2==null) {
+                Toast.makeText(this, "Gambar 2 tidak boleh kosong", Toast.LENGTH_SHORT).show()
+            }else {
 
                 //content values
                 contentValues.put("Created_at", currentDateTime)
@@ -211,8 +223,8 @@ class HaulingActivity : AppCompatActivity() {
 
                 if (result != -1L) {
                     // Penyimpanan berhasil, tampilkan pesan toast
-                    Toast.makeText(this, "Data berhasil disimpan", Toast.LENGTH_SHORT)
-                        .show()
+                    val intent = Intent(this@HaulingActivity,HistoryHauling::class.java)
+                    startActivity(intent)
                     finish()
                 } else {
                     // Penyimpanan gagal, tampilkan pesan toast
@@ -221,5 +233,25 @@ class HaulingActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+    override fun onBackPressed() {
+        val builder = AlertDialog.Builder(this)
+        builder.setMessage("Apakah Anda yakin ingin keluar?")
+        builder.setCancelable(false)
+
+        builder.setPositiveButton("Ya") { dialog, which ->
+            // Tindakan yang akan diambil jika pengguna menekan "Ya"
+            val intent = Intent(this@HaulingActivity,HistoryHauling::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+        builder.setNegativeButton("Tidak") { dialog, which ->
+            // Tidak melakukan apa-apa jika pengguna menekan "Tidak"
+            dialog.dismiss() // Menutup dialog
+        }
+
+        val dialog = builder.create()
+        dialog.show()
     }
 }

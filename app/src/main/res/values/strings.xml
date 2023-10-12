@@ -112,6 +112,8 @@
     <string name="D18">Apakah Jembatan hopper/ stockpile tidak ada halang rintang dilalui</string>
     <string name="D19">Apakah Jembatan Hopper ada Trafficman</string>
     <string name="D20">Apakah Channel komunikasi sesuai dengan Rambu perintah</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

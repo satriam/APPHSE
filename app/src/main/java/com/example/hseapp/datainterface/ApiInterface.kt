@@ -7,6 +7,7 @@ import com.example.hseapp.dataclass.DataMe
 import com.example.hseapp.dataclass.Loading
 import com.example.hseapp.dataclass.SignInBody
 import com.example.hseapp.dataclass.notif
+import com.example.hseapp.dataclass.response
 import com.example.hseapp.dataclass.safetycampaign
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -14,6 +15,7 @@ import retrofit2.Call
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
+import retrofit2.http.Headers
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
@@ -44,14 +46,14 @@ interface ApiInterface {
         @Part("mitra") mitra: RequestBody,
         @Part gambar1: MultipartBody.Part
     ): Call<Void>
-
+//    @Headers("Content-Type: application/json")
     @Multipart
     @POST("/loading")
     fun uploadDataWithImage(
         @Part("data") data: List<AnswerEntity>,
         @Part gambar1: MultipartBody.Part,
         @Part gambar2: MultipartBody.Part
-    ): Call<Void>
+    ): Call<response>
 
     @GET("/Loading/tampil")
     fun getrecent(): Call<ArrayList<Loading>>
@@ -62,7 +64,7 @@ interface ApiInterface {
         @Part("data") data: List<DumpingEntity>,
         @Part gambar1: MultipartBody.Part,
         @Part gambar2: MultipartBody.Part
-    ): Call<Void>
+    ): Call<response>
 
     @GET("/Dumping/tampil")
     fun getDumping(): Call<ArrayList<Loading>>
@@ -73,7 +75,7 @@ interface ApiInterface {
         @Part("data") data: List<HaulingEntity>,
         @Part gambar1: MultipartBody.Part,
         @Part gambar2: MultipartBody.Part
-    ): Call<Void>
+    ): Call<response>
 
     @GET("/Hauling/tampil")
     fun getHauling(): Call<ArrayList<Loading>>
@@ -87,11 +89,11 @@ interface ApiInterface {
         @Part("perusahaan") perusahaan: RequestBody,
         @Part("unit") unit: RequestBody,
         @Part("nama_orang") nama_orang: RequestBody,
-        @Part("nomorhp") nomorhp: RequestBody,
+        @Part("email") nomorhp: RequestBody,
         @Part("jenis") jenis: RequestBody,
         @Part("tanggal") tanggal: RequestBody,
         @Part file: MultipartBody.Part
-    ): Call<Void>
+    ): Call<response>
 
 
 }
