@@ -1,5 +1,6 @@
 package com.example.hseapp.adapter
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.util.Log
@@ -8,18 +9,30 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hseapp.DetailInspeksi
+import com.example.hseapp.DetailInspeksiOnline
 import com.example.hseapp.R
 import com.example.hseapp.dao.AnswerEntity
 import com.example.hseapp.dataclass.Loading
 import com.example.hseapp.retrofit.RetrofitInstance
+import com.example.hseapp.retrofit.SessionManager
 import com.squareup.picasso.Picasso
 import retrofit2.Callback
 
 class AdapterLoading(private val dataList: ArrayList<Loading>): RecyclerView.Adapter<AdapterLoading.ViewHolderData>() {
+    private var sessionManager: SessionManager? = null // Inisialisasi sessionManager dengan null
+
+    fun setSessionManager(sessionManager: SessionManager) {
+        this.sessionManager = sessionManager
+    }
+
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderData {
         val layout = LayoutInflater.from(parent.context).inflate(R.layout.recent_loading, parent, false)
         return ViewHolderData(layout)
@@ -30,7 +43,13 @@ class AdapterLoading(private val dataList: ArrayList<Loading>): RecyclerView.Ada
 
         holder.tanggal.text = data.tanggal
         holder.lokasi.text = data.nama_lokasi
-        holder.card.setCardBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.biru))
+        holder.pengawas.text = data.nama_pengawas
+        holder.card.setCardBackgroundColor(
+            ContextCompat.getColor(
+                holder.itemView.context,
+                R.color.biru
+            )
+        )
 
         holder.status.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.white))
 
@@ -47,19 +66,29 @@ class AdapterLoading(private val dataList: ArrayList<Loading>): RecyclerView.Ada
             .into(holder.img)
 
 
-//        holder.itemView.setOnClickListener{
-//            val ctx = holder.context
-//            val intent = Intent(ctx,DetailInspeksi::class.java)
+        holder.itemView.setOnClickListener {
+            sessionManager?.let { manager ->
+                if (manager.getRole() != "admin") {
+                    Toast.makeText(holder.itemView.context, "tidak ada akses", Toast.LENGTH_SHORT)
+                        .show()
+                } else {
+                    val ctx = holder.context
+                    val intent = Intent(ctx, DetailInspeksiOnline::class.java)
 
-//            intent.putExtra("id_loading", data.id_loadings.toString())
-//            intent.putExtra("id_dumping", data.id_dumpings.toString())
-//            intent.putExtra("id_hauling", data.id_haulings.toString())
-//            intent.putExtra("nama",data.nama_lokasi.toString())
-//            intent.putExtra("jenis",data.created_at.toString())
-//            intent.putExtra("email",data.img_url_1.toString())
-//            intent.putExtra("role_id",item.role_id.toString())
-//            ctx.startActivity(intent)
-//        }
+            intent.putExtra("id_loading", data.id_loadings)
+            intent.putExtra("tanggal",data.tanggal.toString())
+            intent.putExtra("pengawas",data.nama_pengawas.toString())
+            intent.putExtra("shift",data.shift.toString())
+            intent.putExtra("grup",data.grup.toString())
+            intent.putExtra("lokasi",data.nama_lokasi.toString())
+            intent.putExtra("gambar1",data.img_url_1)
+            intent.putExtra("gambar2",data.img_url_2)
+            ctx.startActivity(intent)
+
+                }
+
+            }
+        }
     }
 
     override fun getItemCount(): Int = dataList.size
@@ -70,6 +99,7 @@ class AdapterLoading(private val dataList: ArrayList<Loading>): RecyclerView.Ada
         val img :ImageView = itemView.findViewById(R.id.tv_img)
         val status : TextView = itemView.findViewById(R.id.tv_status)
         val card : CardView = itemView.findViewById(R.id.card)
-//        val context = itemView.context
+        val pengawas : TextView = itemView.findViewById(R.id.pengawas)
+        val context = itemView.context
     }
 }

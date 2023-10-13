@@ -58,6 +58,8 @@ interface ApiInterface {
     @GET("/Loading/tampil")
     fun getrecent(): Call<ArrayList<Loading>>
 
+    @GET("/loading")
+    fun getrecentadmin(): Call<ArrayList<Loading>>
     @Multipart
     @POST("/dumping")
     fun Dumpingupload(

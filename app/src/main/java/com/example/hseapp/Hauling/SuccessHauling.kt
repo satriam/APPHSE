@@ -81,7 +81,7 @@ class SuccessHauling : Fragment() {
                     }
                 } else {
                     val errorMessage = response.message()
-                    // Handle error message
+
                 }
             }
 

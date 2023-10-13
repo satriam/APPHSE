@@ -32,7 +32,7 @@
                     android:orientation="vertical"
                     android:padding="5dp"
                     android:layout_marginStart="120dp"
-                    android:layout_marginTop="15dp">
+                    >
 
                     <TextView
                         android:id="@+id/tv_lokasi"
@@ -51,6 +51,17 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="10dp"
                         android:text="tanggal"
+                        android:ellipsize="end"
+                        android:maxLines="2"
+                        android:textColor="@android:color/black"
+                        android:textSize="14sp" />
+                    <TextView
+                        android:id="@+id/pengawas"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="Pengawas"
                         android:ellipsize="end"
                         android:maxLines="2"
                         android:textColor="@android:color/black"

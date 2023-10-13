@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -52,31 +53,66 @@ class SuccessFragment : Fragment() {
         sessionManager = SessionManager(requireContext())
 
         val apiService = apiClient.getrecent()
+        val apiadmin = apiClient.getrecentadmin()
         val listData = ArrayList<Loading>()
 
-        apiService.enqueue(object : Callback<ArrayList<Loading>> {
-            override fun onResponse(call: Call<ArrayList<Loading>>, response: Response<ArrayList<Loading>>) {
-                if (response.isSuccessful) {
-                    val dataMe = response.body()
-                    Log.e("DATA LOADING", dataMe.toString())
+        if (sessionManager.getRole() == "admin") {
+            apiadmin.enqueue(object : Callback<ArrayList<Loading>> {
+                override fun onResponse(
+                    call: Call<ArrayList<Loading>>,
+                    response: Response<ArrayList<Loading>>
+                ) {
+                    if (response.isSuccessful) {
+                        val dataMe = response.body()
+                        Log.e("DATA LOADING", dataMe.toString())
 
-                    if (dataMe != null) {
-                        listData.addAll(dataMe)
-                        adapter = AdapterLoading(listData)
-                        recyclerView.adapter = adapter
+                        if (dataMe != null) {
+                            listData.addAll(dataMe)
+                            adapter = AdapterLoading(listData)
+                            recyclerView.adapter = adapter
+                        } else {
+                            // Handle case when dataMe is null
+                        }
                     } else {
-                        // Handle case when dataMe is null
+                        val errorMessage = response.message()
+                        // Handle error message
                     }
-                } else {
-                    val errorMessage = response.message()
-                    // Handle error message
                 }
-            }
 
-            override fun onFailure(call: Call<ArrayList<Loading>>, t: Throwable) {
-                Log.e("DATA LOADING", t.toString())
-                // Handle failure
-            }
-        })
+                override fun onFailure(call: Call<ArrayList<Loading>>, t: Throwable) {
+                    Log.e("DATA LOADING", t.toString())
+                    // Handle failure
+                }
+            })
+        } else {
+
+            apiService.enqueue(object : Callback<ArrayList<Loading>> {
+                override fun onResponse(
+                    call: Call<ArrayList<Loading>>,
+                    response: Response<ArrayList<Loading>>
+                ) {
+                    if (response.isSuccessful) {
+                        val dataMe = response.body()
+                        Log.e("DATA LOADING", dataMe.toString())
+
+                        if (dataMe != null) {
+                            listData.addAll(dataMe)
+                            adapter = AdapterLoading(listData)
+                            recyclerView.adapter = adapter
+                        } else {
+                            // Handle case when dataMe is null
+                        }
+                    } else {
+                        val errorMessage = response.message()
+                        // Handle error message
+                    }
+                }
+
+                override fun onFailure(call: Call<ArrayList<Loading>>, t: Throwable) {
+                    Log.e("DATA LOADING", t.toString())
+                    // Handle failure
+                }
+            })
+        }
     }
 }

@@ -108,10 +108,7 @@ class PendingHauling : Fragment() {
 
         val data = dataList[index]
         val imageFile = File(data.gambar1)
-
-        Log.d("imagefile",imageFile.toString())
         val imageFile2 = File(data.gambar2)
-        Log.d("imagefile2",imageFile2.toString())
         val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), imageFile)
         val requestFile2 = RequestBody.create("image/*".toMediaTypeOrNull(), imageFile2)
         val imageBody = MultipartBody.Part.createFormData("gambar1", imageFile.name, requestFile)
@@ -138,7 +135,6 @@ class PendingHauling : Fragment() {
                             "Gagal mengirim data ke API. Pesan kesalahan: $errorMessage",
                             Toast.LENGTH_SHORT
                         ).show()
-                        Log.e("buii",errorMessage.toString())
                         swipeRefreshLayout.isRefreshing = false
                     }
                 }
