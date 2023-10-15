@@ -62,6 +62,7 @@ dependencies {
     implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
     implementation ("com.toptoche.searchablespinner:searchablespinnerlibrary:1.3.1")
     implementation ("de.hdodenhof:circleimageview:2.2.0")
+    implementation ("com.github.timonknispel:KTLoadingButton:1.2.0")
 
 
 
