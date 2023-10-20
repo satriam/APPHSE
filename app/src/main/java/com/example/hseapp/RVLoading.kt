@@ -3,6 +3,7 @@ package com.example.hseapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.viewpager.widget.ViewPager
+import com.example.hseapp.Loading.AccSpvFragment
 import com.example.hseapp.adapter.ViewPagerAdapter
 import com.example.hseapp.Loading.PendingFragment
 import com.example.hseapp.Loading.SuccessFragment
@@ -18,6 +19,7 @@ class RVLoading : AppCompatActivity() {
 
         adapter.addFragment(PendingFragment(), "Pending")
         adapter.addFragment(SuccessFragment(), "Terkirim")
+        adapter.addFragment(AccSpvFragment(), "ACC SPV")
 
         val viewPager = findViewById<ViewPager>(R.id.viewPager) // Mengakses ViewPager dengan findViewById
         val tabLayout = findViewById<TabLayout>(R.id.tbLayout) // Mengakses TabLayout dengan findViewById

@@ -24,13 +24,7 @@ import com.example.hseapp.retrofit.SessionManager
 import com.squareup.picasso.Picasso
 import retrofit2.Callback
 
-class AdapterLoading(private val dataList: ArrayList<Loading>): RecyclerView.Adapter<AdapterLoading.ViewHolderData>() {
-    private var sessionManager: SessionManager? = null // Inisialisasi sessionManager dengan null
-
-    fun setSessionManager(sessionManager: SessionManager) {
-        this.sessionManager = sessionManager
-    }
-
+class AdapterLoading(private val dataList: ArrayList<Loading> , private val sessionManager: SessionManager) : RecyclerView.Adapter<AdapterLoading.ViewHolderData>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderData {
@@ -50,56 +44,62 @@ class AdapterLoading(private val dataList: ArrayList<Loading>): RecyclerView.Ada
                 R.color.biru
             )
         )
+        if (sessionManager.getRole()=="admin"){
+            holder.nama.visibility = View.VISIBLE
+            holder.nama.text = data.nama
+        }
 
         holder.status.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.white))
 
-
-        // Dapatkan URL gambar dari atribut yang sesuai dalam data
         val imageUrl = RetrofitInstance.BASE_URL + data.img_url_1
-        val widthInPixels = 80  // Gantilah dengan ukuran lebar yang Anda inginkan dalam piksel
-        val heightInPixels = 80 // Gantilah dengan ukuran tinggi yang Anda inginkan dalam piksel
+        val widthInPixels = 80
+        val heightInPixels = 80
 
         Picasso.get()
-            .load(Uri.parse(imageUrl)) // Konversi URL menjadi Uri jika perlu
-            .resize(widthInPixels, heightInPixels) // Atur ukuran lebar dan tinggi di sini
-            .centerCrop() // Atur cara tampilan gambar (misalnya: centerCrop, fit, dsb.)
+            .load(Uri.parse(imageUrl))
+            .resize(widthInPixels, heightInPixels)
+            .centerCrop()
             .into(holder.img)
 
-
         holder.itemView.setOnClickListener {
-            sessionManager?.let { manager ->
-                if (manager.getRole() != "admin") {
-                    Toast.makeText(holder.itemView.context, "tidak ada akses", Toast.LENGTH_SHORT)
-                        .show()
-                } else {
+//            sessionManager?.let { manager ->
+//                if (manager.getRole() != "admin") {
+//                    Toast.makeText(holder.itemView.context, "Tidak ada akses", Toast.LENGTH_SHORT).show()
+//                } else {
                     val ctx = holder.context
                     val intent = Intent(ctx, DetailInspeksiOnline::class.java)
 
-            intent.putExtra("id_loading", data.id_loadings)
-            intent.putExtra("tanggal",data.tanggal.toString())
-            intent.putExtra("pengawas",data.nama_pengawas.toString())
-            intent.putExtra("shift",data.shift.toString())
-            intent.putExtra("grup",data.grup.toString())
-            intent.putExtra("lokasi",data.nama_lokasi.toString())
-            intent.putExtra("gambar1",data.img_url_1)
-            intent.putExtra("gambar2",data.img_url_2)
-            ctx.startActivity(intent)
-
-                }
-
+                    intent.putExtra("id_loading", data.id_loadings)
+                    intent.putExtra("id_hauling", data.id_haulings)
+                    intent.putExtra("id_dumping", data.id_dumpings)
+                    intent.putExtra("tanggal", data.tanggal.toString())
+                    intent.putExtra("pengawas", data.nama_pengawas.toString())
+                    intent.putExtra("shift", data.shift.toString())
+                    intent.putExtra("grup", data.grup.toString())
+                    intent.putExtra("lokasi", data.nama_lokasi.toString())
+                    intent.putExtra("gambar1", data.img_url_1)
+                    intent.putExtra("gambar2", data.img_url_2)
+                    intent.putExtra("nama", data.nama)
+                    ctx.startActivity(intent)
+//                }
+//            } ?: run {
+                // Handle jika sessionManager tidak ada atau belum di-set
+//                Toast.makeText(holder.itemView.context, "SessionManager belum di-set", Toast.LENGTH_SHORT).show()
+//                Log.d("role", sessionManager?.getRole().toString())
             }
         }
-    }
+
 
     override fun getItemCount(): Int = dataList.size
 
     class ViewHolderData(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tanggal: TextView = itemView.findViewById(R.id.tanggal)
         val lokasi: TextView = itemView.findViewById(R.id.tv_lokasi)
-        val img :ImageView = itemView.findViewById(R.id.tv_img)
-        val status : TextView = itemView.findViewById(R.id.tv_status)
-        val card : CardView = itemView.findViewById(R.id.card)
-        val pengawas : TextView = itemView.findViewById(R.id.pengawas)
+        val img: ImageView = itemView.findViewById(R.id.tv_img)
+        val status: TextView = itemView.findViewById(R.id.tv_status)
+        val card: CardView = itemView.findViewById(R.id.card)
+        val pengawas: TextView = itemView.findViewById(R.id.pengawas)
+        val nama: TextView = itemView.findViewById(R.id.postby)
         val context = itemView.context
     }
 }

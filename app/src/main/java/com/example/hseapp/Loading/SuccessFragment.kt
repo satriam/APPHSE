@@ -68,7 +68,7 @@ class SuccessFragment : Fragment() {
 
                         if (dataMe != null) {
                             listData.addAll(dataMe)
-                            adapter = AdapterLoading(listData)
+                            adapter = AdapterLoading(listData,sessionManager)
                             recyclerView.adapter = adapter
                         } else {
                             // Handle case when dataMe is null
@@ -97,7 +97,7 @@ class SuccessFragment : Fragment() {
 
                         if (dataMe != null) {
                             listData.addAll(dataMe)
-                            adapter = AdapterLoading(listData)
+                            adapter = AdapterLoading(listData,sessionManager)
                             recyclerView.adapter = adapter
                         } else {
                             // Handle case when dataMe is null

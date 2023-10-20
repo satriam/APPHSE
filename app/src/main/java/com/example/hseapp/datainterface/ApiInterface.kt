@@ -70,6 +70,8 @@ interface ApiInterface {
 
     @GET("/Dumping/tampil")
     fun getDumping(): Call<ArrayList<Loading>>
+    @GET("/dumping")
+    fun getDumpingAdmin(): Call<ArrayList<Loading>>
 
     @Multipart
     @POST("/hauling")
@@ -81,6 +83,8 @@ interface ApiInterface {
 
     @GET("/Hauling/tampil")
     fun getHauling(): Call<ArrayList<Loading>>
+    @GET("/hauling")
+    fun getHaulingAdmin(): Call<ArrayList<Loading>>
 
     @Multipart
     @POST("/pengaduan")

@@ -103,6 +103,7 @@ data class Loading(
     val pengawas: String?,
     val tindakan1:String?,
     val tindakan2:String?,
-    val created_at:String?
+    val created_at:String?,
+    val nama:String?
 )
 

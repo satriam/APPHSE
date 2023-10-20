@@ -66,6 +66,18 @@
                         android:maxLines="2"
                         android:textColor="@android:color/black"
                         android:textSize="14sp" />
+                    <TextView
+                        android:id="@+id/postby"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:text="nama"
+                        android:ellipsize="end"
+                        android:maxLines="2"
+                        android:textColor="@android:color/black"
+                        android:textSize="14sp"
+                        android:visibility="gone"/>
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/card"

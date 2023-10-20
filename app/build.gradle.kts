@@ -12,7 +12,7 @@ android {
         minSdk = 24
         targetSdk = 33
         versionCode = 1
-        versionName = "1.5.1"
+        versionName = "1.5.4"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -63,7 +63,7 @@ dependencies {
     implementation ("com.toptoche.searchablespinner:searchablespinnerlibrary:1.3.1")
     implementation ("de.hdodenhof:circleimageview:2.2.0")
     implementation ("com.github.timonknispel:KTLoadingButton:1.2.0")
-
+//    implementation ("com.github.StevenDXC:DxLoadingButton:2.4")
 
 
 }

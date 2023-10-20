@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">SIPANDU</string>
-
     <string name="l1">Apakah Lebar Loading Point sesuai dengan parameter hingga pergerakan manuver dump truck aman sesuai jenis dump truck</string>
     <string name="l2">Apakah permukaan loading point rata dan bebas dari tumpahan material berserakan?</string>
     <string name="l3">Apakah grade jalan atau rambu menuju loading sesuai parameter &lt; 8%</string>
@@ -29,29 +28,65 @@
     <string name="l26">Apakah adanya penyiraman saat area loading berdebu oleh unit water truck</string>
 
     <string-array name="shift">
+        <item>Shift</item>
         <item>Shift 1</item>
         <item>Shift 2</item>
         <item>Shift 3</item>
     </string-array>
     <string-array name="grup">
+        <item>Grup</item>
         <item>A</item>
         <item>B</item>
         <item>C</item>
         <item>D</item>
     </string-array>
     <string-array name="lokasi">
+        <item>Nama Lokasi</item>
         <item>TAL</item>
         <item>MTBU</item>
         <item>BANKO</item>
         <item>MTB</item>
     </string-array>
 
+    <string-array name="namalokasi">
+        <item>Nama Lokasi Detail</item>
+        <item>LS. 1A Ext</item>
+        <item>LS. GreenBelt</item>
+        <item>TS. Niru</item>
+        <item>DH3</item>
+        <item>DH4</item>
+        <item>DH5</item>
+        <item>LS3</item>
+        <item>Elevasi 35 Utara 3</item>
+        <item>Elevasi 37</item>
+        <item>Stock Timur Selatan</item>
+        <item>Stock Cardiff</item>
+        <item>Crusher Pama</item>
+        <item>Stock CCP</item>
+        <item>TLS-2 VF 4</item>
+        <item>Elevasi 35 S1</item>
+        <item>Crusher OLC-12 BPI</item>
+        <item>Jalan Produksi Banko</item>
+        <item>Jalan Produksi TAL</item>
+        <item>Jalan Produksi MTB</item>
+        <item>Jalan Line C</item>
+    </string-array>
     <string-array name="aduan">
         <item>Jenis Pengaduan</item>
         <item>Attitude</item>
         <item>Disiplin</item>
         <item>Pelanggaran</item>
         <item>Fatigue</item>
+    </string-array>
+
+    <string-array name="spv">
+        <item>Nama Supervisor</item>
+        <item>Agung Satria</item>
+        <item>Bagus Wira Kesuma</item>
+        <item>Dafa Ramadani</item>
+        <item>Dwipa Wahyu Pramudya</item>
+        <item>Nurfajrian Trilaksono</item>
+        <item>Radiansyah</item>
     </string-array>
     <string-array name="mitra">
         <item>Mitra</item>

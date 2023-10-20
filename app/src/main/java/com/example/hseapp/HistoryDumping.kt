@@ -16,6 +16,7 @@ class HistoryDumping : AppCompatActivity() {
 
         adapter.addFragment(PendingDumping(), "Pending")
         adapter.addFragment(SuccessDumping(), "Terkirim")
+        adapter.addFragment(SuccessDumping(), "ACC Laporan")
 
         val viewPager = findViewById<ViewPager>(R.id.viewPagerdumping) // Mengakses ViewPager dengan findViewById
         val tabLayout = findViewById<TabLayout>(R.id.tbLayoutdumping) // Mengakses TabLayout dengan findViewById

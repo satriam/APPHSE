@@ -3,6 +3,7 @@ package com.example.hseapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.viewpager.widget.ViewPager
+import com.example.hseapp.Dumping.SuccessDumping
 import com.example.hseapp.Hauling.PendingHauling
 import com.example.hseapp.Hauling.SuccessHauling
 import com.example.hseapp.Loading.PendingFragment
@@ -18,6 +19,7 @@ class HistoryHauling : AppCompatActivity() {
 
         adapter.addFragment(PendingHauling(), "Pending")
         adapter.addFragment(SuccessHauling(), "Terkirim")
+        adapter.addFragment(SuccessDumping(), "ACC Laporan")
 
         val viewPager = findViewById<ViewPager>(R.id.viewPager) // Mengakses ViewPager dengan findViewById
         val tabLayout = findViewById<TabLayout>(R.id.tbLayout) // Mengakses TabLayout dengan findViewById

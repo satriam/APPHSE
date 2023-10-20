@@ -1024,6 +1024,12 @@
                 android:orientation="vertical"
                 android:padding="16dp">
                 <!-- Nama Loading -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Evident"
+                    android:textAlignment="center"
+                    android:textStyle="bold"/>
                 <ImageView
                     android:id="@+id/imageView"
                     android:layout_width="80dp"
@@ -1031,17 +1037,26 @@
                     android:src="@drawable/noimage"
                     android:scaleType="fitCenter"
                     android:layout_gravity="center"
+                    android:layout_marginBottom="20dp"
                     />
-                <com.google.android.material.textfield.TextInputLayout
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Tidakan Perbaikan" >
-                    <EditText
-                        android:id="@+id/tindakan"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-                </com.google.android.material.textfield.TextInputLayout>
+                    android:text="Pengawas"
+                    android:textAlignment="center"
+                    android:textStyle="bold"/>
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/noimage"
+                    android:scaleType="fitCenter"
+                    android:layout_gravity="center"
+                    />
+
+
             </LinearLayout>
+
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
@@ -1056,18 +1071,21 @@
                 android:orientation="vertical"
                 android:padding="16dp">
                 <!-- Nama Loading -->
-                <ImageView
-                    android:id="@+id/imageView2"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:src="@drawable/noimage"
-                    android:scaleType="fitCenter"
-                    android:layout_gravity="center"
-                    />
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Tidakan Perbaikan" >
+                    android:hint="Temuan" >
+                    <EditText
+                        android:id="@+id/tindakan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Rekomendasi / Tidakan Perbaikan" >
                     <EditText
                         android:id="@+id/tindakan2"
                         android:layout_width="match_parent"

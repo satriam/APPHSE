@@ -5,6 +5,8 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
+import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import com.example.hseapp.adapter.AdapterPending
@@ -181,13 +183,17 @@ class LoadingActivity : AppCompatActivity() {
                     val ettindakan2 = findViewById<EditText>(R.id.tindakan2)
                     val tindakan2 = ettindakan2.text.toString()
 
-
-
                     if (loading.isEmpty()) {
                         etloading.setError("Nama Loading Tidak boleh Kosong")
                     } else if (pengawas.isEmpty()) {
                         etpengawas.setError("Nama Pengawas Tidak boleh Kosong")
-                    }  else if (imageUri==null) {
+                    } else if(lokasi=="Nama Lokasi"){
+                        Toast.makeText(this, "Pilih Nama Lokasi", Toast.LENGTH_SHORT).show()
+                    }else if(shift =="Shift") {
+                        Toast.makeText(this, "Pilih Shift", Toast.LENGTH_SHORT).show()
+                    }else if(lokasi=="Grup") {
+                        Toast.makeText(this, "Pilih Grup", Toast.LENGTH_SHORT).show()
+                    } else if (imageUri==null) {
                         Toast.makeText(this, "Gambar 1 tidak boleh kosong", Toast.LENGTH_SHORT).show()
                     }else if (imageUri2==null) {
                         Toast.makeText(this, "Gambar 2 tidak boleh kosong", Toast.LENGTH_SHORT).show()

@@ -11,6 +11,8 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.Spinner
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -44,6 +46,7 @@ class PengaduanActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var  submit:Button
     private lateinit var selectDate: EditText
     private lateinit var selectTime: EditText
+
     lateinit var btnFile : Button
     private val pickImage = 1
     private val pickVideo = 2
@@ -57,6 +60,7 @@ class PengaduanActivity : AppCompatActivity(), View.OnClickListener {
 
         init()
         submit.setOnClickListener {
+
             validation()
         }
 
@@ -193,6 +197,9 @@ class PengaduanActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun action(){
+        val layoutprogress = findViewById<LinearLayout>(R.id.progresslayout)
+        val overlayView = findViewById<View>(R.id.overlayView)
+
         val selectDateText = selectDate.text.toString()
         val selectTimeText = selectTime.text.toString()
 
@@ -218,6 +225,13 @@ class PengaduanActivity : AppCompatActivity(), View.OnClickListener {
         val jenis = RequestBody.create("text/plain".toMediaTypeOrNull(), spinner.selectedItem.toString())
         val tanggal = RequestBody.create("text/plain".toMediaTypeOrNull(), dateTimeString)
 
+        submit.isEnabled = false
+
+        // Tampilkan ProgressBar
+        overlayView.visibility = View.VISIBLE
+        layoutprogress.visibility = View.VISIBLE
+        submit.isEnabled=false
+
         val sendData = apiClient.Pengaduan(
             nama, lokasi,kronologi,perusahaan,unit,orang,hp,jenis,tanggal, imageBody
         )
@@ -227,6 +241,8 @@ class PengaduanActivity : AppCompatActivity(), View.OnClickListener {
                 val responseBody = response.body()
                 if (responseBody != null) {
                     if (response.isSuccessful && responseBody.message == "berhasil menambahkan data" && responseBody.status == 200) {
+                        overlayView.visibility = View.GONE
+                        layoutprogress.visibility = View.GONE
                         Toast.makeText(
                             this@PengaduanActivity,
                             "BERHASIL MELAKUKAN PENGADUAN",
@@ -268,6 +284,10 @@ class PengaduanActivity : AppCompatActivity(), View.OnClickListener {
 
             override fun onFailure(call: retrofit2.Call<response>, t: Throwable) {
                 Toast.makeText(this@PengaduanActivity, "Cek Koneksi!", Toast.LENGTH_SHORT).show()
+                overlayView.visibility = View.GONE
+                layoutprogress.visibility = View.GONE
+                submit.isEnabled=true
+
             }
         })
 
