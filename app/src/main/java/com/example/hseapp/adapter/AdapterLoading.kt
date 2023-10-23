@@ -50,6 +50,7 @@ class AdapterLoading(private val dataList: ArrayList<Loading> , private val sess
         }
 
         holder.status.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.white))
+        holder.status.text = "Menunggu Acc"
 
         val imageUrl = RetrofitInstance.BASE_URL + data.img_url_1
         val widthInPixels = 80
