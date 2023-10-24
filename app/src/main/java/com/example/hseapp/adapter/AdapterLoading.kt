@@ -1,5 +1,6 @@
 package com.example.hseapp.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -35,6 +36,7 @@ class AdapterLoading(private val dataList: ArrayList<Loading> , private val sess
     override fun onBindViewHolder(holder: ViewHolderData, position: Int) {
         val data = dataList[position]
 
+
         holder.tanggal.text = data.tanggal
         holder.lokasi.text = data.nama_lokasi
         holder.pengawas.text = data.nama_pengawas
@@ -63,12 +65,9 @@ class AdapterLoading(private val dataList: ArrayList<Loading> , private val sess
             .into(holder.img)
 
         holder.itemView.setOnClickListener {
-//            sessionManager?.let { manager ->
-//                if (manager.getRole() != "admin") {
-//                    Toast.makeText(holder.itemView.context, "Tidak ada akses", Toast.LENGTH_SHORT).show()
-//                } else {
                     val ctx = holder.context
                     val intent = Intent(ctx, DetailInspeksiOnline::class.java)
+
 
                     intent.putExtra("id_loading", data.id_loadings)
                     intent.putExtra("id_hauling", data.id_haulings)
@@ -84,17 +83,24 @@ class AdapterLoading(private val dataList: ArrayList<Loading> , private val sess
                     intent.putExtra("qr_mitra", data.qr_mitra)
                     intent.putExtra("qr_pengawas", data.qr_pengawas)
                     intent.putExtra("supervisor", data.nama_supervisor)
+                    intent.putExtra("status", data.status)
+                    intent.putExtra("detailloading", data.nama_loading)
+                    intent.putExtra("detaildumping", data.nama_dumping)
+                    intent.putExtra("detailhauling", data.nama_hauling)
                     ctx.startActivity(intent)
-//                }
-//            } ?: run {
-                // Handle jika sessionManager tidak ada atau belum di-set
-//                Toast.makeText(holder.itemView.context, "SessionManager belum di-set", Toast.LENGTH_SHORT).show()
-//                Log.d("role", sessionManager?.getRole().toString())
+
             }
         }
 
 
     override fun getItemCount(): Int = dataList.size
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateData(newDataList: ArrayList<Loading>) {
+        dataList.clear()
+        dataList.addAll(newDataList)
+        notifyDataSetChanged()
+    }
 
     class ViewHolderData(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val tanggal: TextView = itemView.findViewById(R.id.tanggal)

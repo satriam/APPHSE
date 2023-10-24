@@ -18,7 +18,9 @@ import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Part
+import retrofit2.http.Path
 import java.time.LocalDateTime
 
 interface ApiInterface {
@@ -135,4 +137,29 @@ interface ApiInterface {
     fun getrecentspvHauling(): Call<ArrayList<Loading>>
     @GET("/Dumping/tampilspv")
     fun getrecentspvDumping(): Call<ArrayList<Loading>>
+
+
+    @FormUrlEncoded
+    @PUT("Loading/update/{id}")
+    fun UpdateAccLoading(
+        @Path("id")id:Int?,
+        @Field("nama_supervisor") nama_supervisor:String?,
+        @Field("tanggal") tanggal:String?
+    ): Call<response>
+
+    @FormUrlEncoded
+    @PUT("Hauling/update/{id}")
+    fun UpdateAccHauling(
+        @Path("id")id:Int?,
+        @Field("nama_supervisor") nama_supervisor:String?,
+        @Field("tanggal") tanggal:String?
+    ): Call<response>
+
+    @FormUrlEncoded
+    @PUT("Dumping/update/{id}")
+    fun UpdateAccDumping(
+        @Path("id")id:Int?,
+        @Field("nama_supervisor") nama_supervisor:String?,
+        @Field("tanggal") tanggal:String?
+    ): Call<response>
 }

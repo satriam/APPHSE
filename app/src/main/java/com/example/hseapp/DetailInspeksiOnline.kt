@@ -1,5 +1,6 @@
 package com.example.hseapp
 
+import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,9 +9,15 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import com.example.hseapp.Loading.AccSpvFragment
+import com.example.hseapp.dataclass.response
 import com.example.hseapp.retrofit.RetrofitInstance
 import com.example.hseapp.retrofit.SessionManager
 import com.squareup.picasso.Picasso
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.File
 
 class DetailInspeksiOnline : AppCompatActivity() {
@@ -27,6 +34,7 @@ class DetailInspeksiOnline : AppCompatActivity() {
     private lateinit var  epengawasmitra: TextView
     private lateinit var  epengawaslap: TextView
     private lateinit var  esupervisor: TextView
+    private lateinit var  edetaillokasi: TextView
     private lateinit var  ehapus: Button
     private lateinit var  eupdate: Button
     private lateinit var sessionManager: SessionManager
@@ -51,8 +59,10 @@ class DetailInspeksiOnline : AppCompatActivity() {
         epengawasmitra= findViewById(R.id.pengawasmitra)
         epengawaslap= findViewById(R.id.pengawaslap)
         esupervisor= findViewById(R.id.supervisor)
+        edetaillokasi= findViewById(R.id.lokasidetail)
         ehapus= findViewById(R.id.hapus)
         eupdate= findViewById(R.id.update)
+
     }
 
     private fun intent() {
@@ -68,6 +78,13 @@ class DetailInspeksiOnline : AppCompatActivity() {
         val qr1 = intent.getStringExtra("qr_mitra")
         val qr2 = intent.getStringExtra("qr_pengawas")
         val spv = intent.getStringExtra("supervisor")
+        val status = intent.getStringExtra("status")
+        val detailloading = intent.getStringExtra("detailloading")
+        val detaildumping = intent.getStringExtra("detaildumping")
+        val detailhauling = intent.getStringExtra("detailhauling")
+        val loading = intent.getIntExtra("id_loading", 0)
+        val dumping = intent.getIntExtra("id_dumping", 0)
+        val hauling = intent.getIntExtra("id_hauling", 0)
 
         etanggal.text = tanggal
         elokasi.text = lokasi
@@ -112,17 +129,148 @@ class DetailInspeksiOnline : AppCompatActivity() {
             .centerCrop()
             .into(eqr2)
 
-        sessionManager = SessionManager(this)
-        if (sessionManager.getRole() == "admin"){
-            ehapus.visibility = View.VISIBLE
-            eupdate.visibility = View.VISIBLE
-        }else if (sessionManager.getRole()=="Supervisor"){
-            ehapus.visibility = View.VISIBLE
-            eupdate.visibility = View.VISIBLE
+        if(detailloading!=null){
+            edetaillokasi.text = detailloading
+        }else if (detaildumping!=null){
+            edetaillokasi.text = detaildumping
+        }else{
+            edetaillokasi.text = detailhauling
         }
 
-
-
+        sessionManager = SessionManager(this)
+        if (sessionManager.getRole() == "admin") {
+            ehapus.visibility = View.VISIBLE
+            eupdate.visibility = View.VISIBLE
+        } else if (sessionManager.getRole() == "Supervisor") {
+            if (status == "Acc") {
+                ehapus.visibility = View.GONE
+                eupdate.visibility = View.GONE
+            } else {
+                if (loading != 0) {
+                    ehapus.visibility = View.VISIBLE
+                    eupdate.visibility = View.VISIBLE
+                    update()
+                }else if(dumping!= 0 ){
+                    ehapus.visibility = View.VISIBLE
+                    eupdate.visibility = View.VISIBLE
+                    updateDumping()
+                }else{
+                    ehapus.visibility = View.VISIBLE
+                    eupdate.visibility = View.VISIBLE
+                    updateHauling()
+                }
+            }
+        }
     }
 
-}
+    private fun update() {
+        val id = intent.getIntExtra("id_loading", 0)
+        val tanggal = intent.getStringExtra("tanggal")
+        val spv = intent.getStringExtra("supervisor")
+
+        eupdate.setOnClickListener {
+
+            val apiClient = RetrofitInstance.Create(this)
+
+            val sendData = apiClient.UpdateAccLoading(
+                id?.toInt(),
+                tanggal.toString(),
+                spv.toString()
+            )
+
+            Log.d("datasend",sendData.toString())
+            sendData.enqueue(object : Callback<response> {
+                override fun onResponse(
+                    call: Call<response>,
+                    response: Response<response>
+                ) {
+                    Log.d("datasend",response.toString())
+                    if (response.isSuccessful) {
+                        Toast.makeText(this@DetailInspeksiOnline, "Berhasil Mengubah Data", Toast.LENGTH_SHORT).show()
+                        finish()
+                    }
+                }
+
+                override fun onFailure(call: Call<response>, t: Throwable) {
+                    Toast.makeText(this@DetailInspeksiOnline, t.toString(), Toast.LENGTH_SHORT).show()
+                }
+
+            })
+            finish()
+        }
+        }
+
+    private fun updateDumping() {
+        val id = intent.getIntExtra("id_dumping", 0)
+        val tanggal = intent.getStringExtra("tanggal")
+        val spv = intent.getStringExtra("supervisor")
+
+        eupdate.setOnClickListener {
+
+            val apiClient = RetrofitInstance.Create(this)
+
+            val sendData = apiClient.UpdateAccDumping(
+                id?.toInt(),
+                tanggal.toString(),
+                spv.toString()
+            )
+
+            Log.d("datasend",sendData.toString())
+            sendData.enqueue(object : Callback<response> {
+                override fun onResponse(
+                    call: Call<response>,
+                    response: Response<response>
+                ) {
+                    Log.d("datasend",response.toString())
+                    if (response.isSuccessful) {
+                        Toast.makeText(this@DetailInspeksiOnline, "Berhasil Mengubah Data", Toast.LENGTH_SHORT).show()
+                        finish()
+                    }
+                }
+
+                override fun onFailure(call: Call<response>, t: Throwable) {
+                    Toast.makeText(this@DetailInspeksiOnline, t.toString(), Toast.LENGTH_SHORT).show()
+                }
+
+            })
+            finish()
+        }
+    }
+
+    private fun updateHauling() {
+        val id = intent.getIntExtra("id_hauling", 0)
+        val tanggal = intent.getStringExtra("tanggal")
+        val spv = intent.getStringExtra("supervisor")
+
+        eupdate.setOnClickListener {
+
+            val apiClient = RetrofitInstance.Create(this)
+
+            val sendData = apiClient.UpdateAccHauling(
+                id?.toInt(),
+                tanggal.toString(),
+                spv.toString()
+            )
+
+            Log.d("datasend",sendData.toString())
+            sendData.enqueue(object : Callback<response> {
+                override fun onResponse(
+                    call: Call<response>,
+                    response: Response<response>
+                ) {
+                    Log.d("datasend",response.toString())
+                    if (response.isSuccessful) {
+                        Toast.makeText(this@DetailInspeksiOnline, "Berhasil Mengubah Data", Toast.LENGTH_SHORT).show()
+                        finish()
+                    }
+                }
+
+                override fun onFailure(call: Call<response>, t: Throwable) {
+                    Toast.makeText(this@DetailInspeksiOnline, t.toString(), Toast.LENGTH_SHORT).show()
+                }
+
+            })
+            finish()
+        }
+    }
+    }

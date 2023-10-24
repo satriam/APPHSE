@@ -47,7 +47,7 @@ class TerkirimLoading: Fragment() {
         swipeRefreshLayout.setOnRefreshListener {
             // Implement refresh action here
             loadData()
-            swipeRefreshLayout.isRefreshing = false
+//            swipeRefreshLayout.isRefreshing = false
         }
 
         loadData()
@@ -70,11 +70,14 @@ class TerkirimLoading: Fragment() {
                 if (response.isSuccessful) {
                     val dataMe = response.body()
                     Log.e("DATA LOADING", dataMe.toString())
-
+                    swipeRefreshLayout.isRefreshing = false
                     if (dataMe != null) {
                         listData.addAll(dataMe)
+
                         adapter = AdapterLoading(listData,sessionManager)
                         recyclerView.adapter = adapter
+                        adapter.updateData(dataMe)
+
                     } else {
                         // Handle case when dataMe is null
                     }

@@ -109,5 +109,8 @@ data class Loading(
     val qr_pengawas:String?,
     val nama_supervisor:String?,
     val status:String?,
+    val nama_loading:String?,
+    val nama_hauling:String?,
+    val nama_dumping:String?,
 )
 
