@@ -57,6 +57,12 @@ interface ApiInterface {
 
     @GET("/Loading/tampil")
     fun getrecent(): Call<ArrayList<Loading>>
+    @GET("/Loading/tampiluseracc")
+    fun getrecentacc(): Call<ArrayList<Loading>>
+    @GET("/Loading/tampilall")
+    fun getloadingspv(): Call<ArrayList<Loading>>
+    @GET("/Loading/acc")
+    fun getacc(): Call<ArrayList<Loading>>
 
     @GET("/loading")
     fun getrecentadmin(): Call<ArrayList<Loading>>
@@ -67,11 +73,19 @@ interface ApiInterface {
         @Part gambar1: MultipartBody.Part,
         @Part gambar2: MultipartBody.Part
     ): Call<response>
-
     @GET("/Dumping/tampil")
     fun getDumping(): Call<ArrayList<Loading>>
+    @GET("/Dumping/tampilall")
+    fun getDumpingspv(): Call<ArrayList<Loading>>
     @GET("/dumping")
     fun getDumpingAdmin(): Call<ArrayList<Loading>>
+    @GET("/Dumping/acc")
+    fun getDumpingacc(): Call<ArrayList<Loading>>
+    @GET("/Dumping/tampiluseracc")
+    fun getrecentaccdumping(): Call<ArrayList<Loading>>
+    @GET("/Dumping/tampilhistoryaccspv")
+    fun getrecentaccspvdumping(): Call<ArrayList<Loading>>
+
 
     @Multipart
     @POST("/hauling")
@@ -85,6 +99,14 @@ interface ApiInterface {
     fun getHauling(): Call<ArrayList<Loading>>
     @GET("/hauling")
     fun getHaulingAdmin(): Call<ArrayList<Loading>>
+    @GET("/Hauling/acc")
+    fun getHaulingacc(): Call<ArrayList<Loading>>
+    @GET("/Hauling/tampiluseracc")
+    fun getrecentaccHauling(): Call<ArrayList<Loading>>
+    @GET("/Hauling/tampilhistoryaccspv")
+    fun getrecentaccspvHauling(): Call<ArrayList<Loading>>
+    @GET("/Hauling/tampilall")
+    fun gethaulingspv(): Call<ArrayList<Loading>>
 
     @Multipart
     @POST("/pengaduan")
@@ -102,4 +124,15 @@ interface ApiInterface {
     ): Call<response>
 
 
+    //tampilan spv
+    @GET("/Loading/tampilspv")
+    fun getrecentspv(): Call<ArrayList<Loading>>
+
+    @GET("/Loading/tampilhistoryaccspv")
+    fun getrecentaccspv(): Call<ArrayList<Loading>>
+
+    @GET("/Hauling/tampilspv")
+    fun getrecentspvHauling(): Call<ArrayList<Loading>>
+    @GET("/Dumping/tampilspv")
+    fun getrecentspvDumping(): Call<ArrayList<Loading>>
 }

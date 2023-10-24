@@ -50,26 +50,51 @@
 
     <string-array name="namalokasi">
         <item>Nama Lokasi Detail</item>
-        <item>LS. 1A Ext</item>
-        <item>LS. GreenBelt</item>
-        <item>TS. Niru</item>
-        <item>DH3</item>
-        <item>DH4</item>
-        <item>DH5</item>
-        <item>LS3</item>
-        <item>Elevasi 35 Utara 3</item>
+        <item>SP 1A Ext</item>
+        <item>SP GreenBelt</item>
+        <item>SP ROM 5</item>
+        <item>Dump Hopper 3</item>
+        <item>Dump Hopper 4</item>
+        <item>Dump Hopper 5</item>
+        <item>Live Stockpile 3</item>
+        <item>Elevasi 35</item>
         <item>Elevasi 37</item>
         <item>Stock Timur Selatan</item>
         <item>Stock Cardiff</item>
         <item>Crusher Pama</item>
         <item>Stock CCP</item>
-        <item>TLS-2 VF 4</item>
-        <item>Elevasi 35 S1</item>
+        <item>Live Stockpile 2</item>
+        <item>Live Stockpile 1</item>
         <item>Crusher OLC-12 BPI</item>
         <item>Jalan Produksi Banko</item>
         <item>Jalan Produksi TAL</item>
         <item>Jalan Produksi MTB</item>
         <item>Jalan Line C</item>
+        <item>TS Raflesia</item>
+        <item>TS Sakura</item>
+        <item>TS Tulip</item>
+        <item>TS Aren</item>
+        <item>TS Merbau</item>
+        <item>TS Merbau Ext</item>
+        <item>TS Sungkai</item>
+        <item>TS Sungkai Ext</item>
+        <item>TS Niru</item>
+        <item>TS Niru Ext</item>
+        <item>TS Kemuning</item>
+        <item>TS Inpit BWE Banko</item>
+        <item>TS Mahoni</item>
+        <item>Live Stockpile 4</item>
+        <item>Live Stockpile 5</item>
+        <item>SP 1A</item>
+        <item>SP 1B</item>
+        <item>TS Mawar</item>
+        <item>TS Rosemary</item>
+        <item>TS Rosela</item>
+        <item>TS Ulin</item>
+        <item>TS Bougenvile</item>
+        <item>TS Anggrek</item>
+
+
     </string-array>
     <string-array name="aduan">
         <item>Jenis Pengaduan</item>
@@ -94,6 +119,7 @@
         <item>Rifansi Dwi Putra</item>
         <item>Prima Indojaya Mandiri</item>
         <item>Rehandling</item>
+        <item>Bukit Asam Kreatif</item>
     </string-array>
 
     <string name="h1">Minimal 20% atau 3,5 kali lebar unit terbesar yang melintasi</string>

@@ -72,7 +72,6 @@
                     android:text="Perbaiki, Tidak Prioritas"/>
             </TableRow>
         </TableLayout>
-
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -85,45 +84,31 @@
                 android:orientation="vertical"
                 android:padding="16dp">
                 <!-- Nama Loading -->
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Nama Hauling">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/NamaHauling"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Nama Pengawas Mitra">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/NamaPengawas"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-                <!--Lokasi -->
-
                 <com.toptoche.searchablespinnerlibrary.SearchableSpinner
                     android:id="@+id/lokasi"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="15dp"
-                    android:entries="@array/lokasi" />
-
+                    android:entries="@array/lokasi"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/spinner_border"/>
+                <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                    android:id="@+id/NamaHauling"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:entries="@array/namalokasi"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/spinner_border"/>
                 <!-- Spinner -->
                 <com.toptoche.searchablespinnerlibrary.SearchableSpinner
                     android:id="@+id/Shift"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="15dp"
-                    android:entries="@array/shift" />
+                    android:entries="@array/shift"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/spinner_border"/>
 
                 <!-- Spinner -->
                 <com.toptoche.searchablespinnerlibrary.SearchableSpinner
@@ -131,13 +116,36 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="15dp"
-                    android:entries="@array/grup" />
+                    android:entries="@array/grup"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/spinner_border"/>
+
+                <!-- Spinner -->
+                <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                    android:id="@+id/Spv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:entries="@array/spv"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/spinner_border"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Nama Pengawas Mitra">
 
 
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/NamaPengawas"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+                <!--             Lokasi -->
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
-
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

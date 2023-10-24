@@ -154,11 +154,14 @@ class HaulingActivity : AppCompatActivity() {
             val etgrup = findViewById<SearchableSpinner>(R.id.grup)
             val grup = etgrup.selectedItem.toString()
             //loading
-            val ethauling = findViewById<EditText>(R.id.NamaHauling)
-            val hauling = ethauling.text.toString()
+            val ethauling = findViewById<SearchableSpinner>(R.id.NamaHauling)
+            val hauling = ethauling.selectedItem.toString()
             //pengawas
             val etpengawas = findViewById<EditText>(R.id.NamaPengawas)
             val pengawas = etpengawas.text.toString()
+            //Supervisor
+            val etspv = findViewById<SearchableSpinner>(R.id.Spv)
+            val spv = etspv.selectedItem.toString()
             //input id
             sessionManager = SessionManager(this)
             val nama = sessionManager.getid()
@@ -174,62 +177,83 @@ class HaulingActivity : AppCompatActivity() {
 
 
 
-            if (hauling.isEmpty()) {
-                ethauling.setError("Nama Hauling Tidak boleh Kosong")
+            if(lokasi=="Nama Lokasi"){
+                Toast.makeText(this, "Pilih Nama Lokasi", Toast.LENGTH_SHORT).show()
+            }else if (hauling=="Nama Lokasi Detail") {
+                Toast.makeText(this, "Pilih Nama Lokasi Detail", Toast.LENGTH_SHORT).show()
+            }else if(shift =="Shift") {
+                Toast.makeText(this, "Pilih Shift", Toast.LENGTH_SHORT).show()
+            }else if(lokasi=="Grup") {
+                Toast.makeText(this, "Pilih Grup", Toast.LENGTH_SHORT).show()
+            }else if(spv=="Nama Supervisor") {
+                Toast.makeText(this, "Pilih Supervisor", Toast.LENGTH_SHORT).show()
             } else if (pengawas.isEmpty()) {
                 etpengawas.setError("Nama Pengawas Tidak boleh Kosong")
-            } else if (imageUri==null) {
+            }  else if (imageUri==null) {
                 Toast.makeText(this, "Gambar 1 tidak boleh kosong", Toast.LENGTH_SHORT).show()
             }else if (imageUri2==null) {
-                Toast.makeText(this, "Gambar 2 tidak boleh kosong", Toast.LENGTH_SHORT).show()
-            }else {
-
-                //content values
-                contentValues.put("Created_at", currentDateTime)
-                contentValues.put("shift", shift)
-                contentValues.put("nama_lokasi", lokasi)
-                contentValues.put("grup", grup)
-                contentValues.put("nama_hauling", hauling)
-                contentValues.put("nama_pengawas", pengawas)
-                contentValues.put("created_by_id", nama)
-                contentValues.put("Image1",pathgambar)
-                contentValues.put("Image2",pathgambar2)
-                contentValues.put("Tindakan1",tindakan)
-                contentValues.put("Tindakan2",tindakan2)
-
-                for (i in 0 until kondisi.size) {
-                    val checkBox = findViewById<MaterialCheckBox>(kondisi[i])
-
-                    // Mendapatkan status checkbox dan menyimpannya ke dalam array
-                    val checkboxStatus = checkBox.isChecked
-
-                    // Menambahkan status checkbox ke dalam ContentValues
-                    contentValues.put("kondisi${i + 1}", checkboxStatus.toString())
+                Toast.makeText(this, "Gambar 2 tidak boleh kosong", Toast.LENGTH_SHORT)
+                    .show()
+            } else {
+                var isFieldsEmpty = false
+                for (i in 0 until checkBoxList.size) {
+                    if (!checkBoxList[i].isChecked) {
+                        if (kdEditTextList[i].text.isNullOrBlank()) {
+                            kdEditTextList[i].error = "Kode Bahaya Wajib Diisi."
+                            isFieldsEmpty = true
+                        }
+                    }
                 }
 
+                if (!isFieldsEmpty) {
+                    //content values
+                    contentValues.put("Created_at", currentDateTime)
+                    contentValues.put("shift", shift)
+                    contentValues.put("nama_lokasi", lokasi)
+                    contentValues.put("grup", grup)
+                    contentValues.put("nama_hauling", hauling)
+                    contentValues.put("nama_pengawas", pengawas)
+                    contentValues.put("created_by_id", nama)
+                    contentValues.put("Image1", pathgambar)
+                    contentValues.put("Image2", pathgambar2)
+                    contentValues.put("Tindakan1", tindakan)
+                    contentValues.put("Tindakan2", tindakan2)
+                    contentValues.put("Nama_Supervisor", spv)
 
-                for (i in 0 until kode.size) {
-                    val editText = findViewById<EditText>(kode[i])
-                    val userInput = editText.text.toString()
+                    for (i in 0 until kondisi.size) {
+                        val checkBox = findViewById<MaterialCheckBox>(kondisi[i])
 
-                    // Menambahkan input ke kolom "kode"
-                    contentValues.put("Kode_bahaya${i + 1}", userInput)
-                }
+                        // Mendapatkan status checkbox dan menyimpannya ke dalam array
+                        val checkboxStatus = checkBox.isChecked
+
+                        // Menambahkan status checkbox ke dalam ContentValues
+                        contentValues.put("kondisi${i + 1}", checkboxStatus.toString())
+                    }
 
 
-                // Simpan data ke tabel
-                val result = db.insert("hauling", null, contentValues)
-                db.close()
+                    for (i in 0 until kode.size) {
+                        val editText = findViewById<EditText>(kode[i])
+                        val userInput = editText.text.toString()
 
-                if (result != -1L) {
-                    // Penyimpanan berhasil, tampilkan pesan toast
-                    val intent = Intent(this@HaulingActivity,HistoryHauling::class.java)
-                    startActivity(intent)
-                    finish()
-                } else {
-                    // Penyimpanan gagal, tampilkan pesan toast
+                        // Menambahkan input ke kolom "kode"
+                        contentValues.put("Kode_bahaya${i + 1}", userInput)
+                    }
+
+
+                    // Simpan data ke tabel
+                    val result = db.insert("hauling", null, contentValues)
+                    db.close()
+
+                    if (result != -1L) {
+                        // Penyimpanan berhasil, tampilkan pesan toast
+                        val intent = Intent(this@HaulingActivity, HistoryHauling::class.java)
+                        startActivity(intent)
+                        finish()
+                    } else {
+                        // Penyimpanan gagal, tampilkan pesan toast
 //                    Toast.makeText(this, "Gagal menyimpan data", Toast.LENGTH_SHORT).show()
-                    Log.d("ERROR",result.toString())
+                        Log.d("ERROR", result.toString())
+                    }
                 }
             }
         }

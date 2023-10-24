@@ -104,6 +104,10 @@ data class Loading(
     val tindakan1:String?,
     val tindakan2:String?,
     val created_at:String?,
-    val nama:String?
+    val nama:String?,
+    val qr_mitra:String?,
+    val qr_pengawas:String?,
+    val nama_supervisor:String?,
+    val status:String?,
 )
 

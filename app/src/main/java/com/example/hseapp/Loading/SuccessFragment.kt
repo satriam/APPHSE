@@ -54,6 +54,7 @@ class SuccessFragment : Fragment() {
 
         val apiService = apiClient.getrecent()
         val apiadmin = apiClient.getrecentadmin()
+        val apispv = apiClient.getrecentspv()
         val listData = ArrayList<Loading>()
 
         if (sessionManager.getRole() == "admin") {
@@ -84,7 +85,36 @@ class SuccessFragment : Fragment() {
                     // Handle failure
                 }
             })
-        } else {
+        } else if(sessionManager.getRole() == "Supervisor"){
+            apispv.enqueue(object : Callback<ArrayList<Loading>> {
+                override fun onResponse(
+                    call: Call<ArrayList<Loading>>,
+                    response: Response<ArrayList<Loading>>
+                ) {
+                    if (response.isSuccessful) {
+                        val dataMe = response.body()
+                        Log.e("DATA LOADING", dataMe.toString())
+
+                        if (dataMe != null) {
+                            listData.addAll(dataMe)
+                            adapter = AdapterLoading(listData,sessionManager)
+                            recyclerView.adapter = adapter
+                        } else {
+                            // Handle case when dataMe is null
+                        }
+                    } else {
+                        val errorMessage = response.message()
+                        // Handle error message
+                    }
+                }
+
+                override fun onFailure(call: Call<ArrayList<Loading>>, t: Throwable) {
+                    Log.e("DATA LOADING", t.toString())
+                    // Handle failure
+                }
+            })
+        }
+        else {
 
             apiService.enqueue(object : Callback<ArrayList<Loading>> {
                 override fun onResponse(

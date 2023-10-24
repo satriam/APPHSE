@@ -1,4 +1,4 @@
-package com.example.hseapp.Dumping
+package com.example.hseapp.Loading
 
 import android.os.Bundle
 import android.util.Log
@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -18,17 +19,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [SuccessDumping.newInstance] factory method to
- * create an instance of this fragment.
- */
-class SuccessDumping : Fragment() {
+class HaulingSpvFragment : Fragment() {
     private lateinit var sessionManager: SessionManager
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: AdapterLoading
@@ -38,12 +29,14 @@ class SuccessDumping : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val rootView = inflater.inflate(R.layout.fragment_success_dumping, container, false)
-        recyclerView = rootView.findViewById(R.id.rv_datadumping)
+        // Inflate the layout for this fragment
+        val rootView = inflater.inflate(R.layout.fragment_success_hauling, container, false)
+
+        recyclerView = rootView.findViewById(R.id.rv_datahauling)
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        swipeRefreshLayout = rootView.findViewById(R.id.swipedumping)
+        swipeRefreshLayout = rootView.findViewById(R.id.swipehauling)
         swipeRefreshLayout.setOnRefreshListener {
             // Implement refresh action here
             loadData()
@@ -59,9 +52,9 @@ class SuccessDumping : Fragment() {
         val apiClient = RetrofitInstance.Create(requireContext())
         sessionManager = SessionManager(requireContext())
 
-        val apiService = apiClient.getDumping()
-        val apiadmin = apiClient.getDumpingAdmin()
-        val apispv = apiClient.getrecentspvDumping()
+        val apiService = apiClient.getrecentaccHauling()
+        val apiadmin = apiClient.getHaulingacc()
+        val apispv = apiClient.getrecentaccspvHauling()
         val listData = ArrayList<Loading>()
 
         if (sessionManager.getRole() == "admin") {
@@ -152,6 +145,4 @@ class SuccessDumping : Fragment() {
             })
         }
     }
-
-
 }

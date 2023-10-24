@@ -120,10 +120,12 @@ class LoadingActivity : AppCompatActivity() {
                     ck.setOnCheckedChangeListener { _, isChecked ->
                         kd.isEnabled = !isChecked
                         kt.isEnabled = !isChecked
+
                     }
                 }
 
                 btn.setOnClickListener {
+
 
                     val dbHelper = DBHelper(this)
                     val db = dbHelper.writableDatabase
@@ -164,11 +166,14 @@ class LoadingActivity : AppCompatActivity() {
                     val etgrup = findViewById<SearchableSpinner>(R.id.grup)
                     val grup = etgrup.selectedItem.toString()
                     //loading
-                    val etloading = findViewById<EditText>(R.id.NamaLoading)
-                    val loading = etloading.text.toString()
+                    val etloading = findViewById<SearchableSpinner>(R.id.NamaLoading)
+                    val loading = etloading.selectedItem.toString()
                     //pengawas
                     val etpengawas = findViewById<EditText>(R.id.NamaPengawas)
                     val pengawas = etpengawas.text.toString()
+                    //Supervisor
+                    val etspv = findViewById<SearchableSpinner>(R.id.Spv)
+                    val spv = etspv.selectedItem.toString()
                     //input id
                     sessionManager = SessionManager(this)
                     val nama = sessionManager.getid()
@@ -183,72 +188,90 @@ class LoadingActivity : AppCompatActivity() {
                     val ettindakan2 = findViewById<EditText>(R.id.tindakan2)
                     val tindakan2 = ettindakan2.text.toString()
 
-                    if (loading.isEmpty()) {
-                        etloading.setError("Nama Loading Tidak boleh Kosong")
-                    } else if (pengawas.isEmpty()) {
-                        etpengawas.setError("Nama Pengawas Tidak boleh Kosong")
-                    } else if(lokasi=="Nama Lokasi"){
+                    if(lokasi=="Nama Lokasi"){
                         Toast.makeText(this, "Pilih Nama Lokasi", Toast.LENGTH_SHORT).show()
+                    }else if (loading=="Nama Lokasi Detail") {
+                        Toast.makeText(this, "Pilih Nama Lokasi Detail", Toast.LENGTH_SHORT).show()
                     }else if(shift =="Shift") {
                         Toast.makeText(this, "Pilih Shift", Toast.LENGTH_SHORT).show()
                     }else if(lokasi=="Grup") {
                         Toast.makeText(this, "Pilih Grup", Toast.LENGTH_SHORT).show()
-                    } else if (imageUri==null) {
+                    }else if(spv=="Nama Supervisor") {
+                        Toast.makeText(this, "Pilih Supervisor", Toast.LENGTH_SHORT).show()
+                    } else if (pengawas.isEmpty()) {
+                        etpengawas.setError("Nama Pengawas Tidak boleh Kosong")
+                    }  else if (imageUri==null) {
                         Toast.makeText(this, "Gambar 1 tidak boleh kosong", Toast.LENGTH_SHORT).show()
                     }else if (imageUri2==null) {
-                        Toast.makeText(this, "Gambar 2 tidak boleh kosong", Toast.LENGTH_SHORT).show()
-                    }else {
-                        //content values
-                        contentValues.put("Created_at", currentDateTime)
-                        contentValues.put("shift", shift)
-                        contentValues.put("nama_lokasi", lokasi)
-                        contentValues.put("grup", grup)
-                        contentValues.put("nama_loading", loading)
-                        contentValues.put("nama_pengawas", pengawas)
-                        contentValues.put("created_by_id", nama)
-                        contentValues.put("Image1",pathgambar)
-                        contentValues.put("Image2",pathgambar2)
-                        contentValues.put("Tindakan1",tindakan)
-                        contentValues.put("Tindakan2",tindakan2)
-
-                        for (i in 0 until kondisi.size) {
-                            val checkBox = findViewById<MaterialCheckBox>(kondisi[i])
-
-                            // Mendapatkan status checkbox dan menyimpannya ke dalam array
-                            val checkboxStatus = checkBox.isChecked
-
-                            // Menambahkan status checkbox ke dalam ContentValues
-                            contentValues.put("kondisi${i + 1}", checkboxStatus.toString())
-                        }
-                        for (i in 0 until keterangan.size) {
-                            val editText = findViewById<EditText>(keterangan[i])
-                            val userInput = editText.text.toString()
-
-                            // Menambahkan input ke kolom "keterangan"
-                            contentValues.put("Keterangan${i + 1}", userInput)
+                        Toast.makeText(this, "Gambar 2 tidak boleh kosong", Toast.LENGTH_SHORT)
+                            .show()
+                    } else {
+                        var isFieldsEmpty = false
+                        for (i in 0 until checkBoxList.size) {
+                            if (!checkBoxList[i].isChecked) {
+                                if (kdEditTextList[i].text.isNullOrBlank() || ktEditTextList[i].text.isNullOrBlank()) {
+                                    kdEditTextList[i].error = "Kode Bahaya Wajib Diisi."
+                                    ktEditTextList[i].error = "Keterangan Wajib Diisi."
+                                    isFieldsEmpty = true
+                                }
+                            }
                         }
 
-                        for (i in 0 until kode.size) {
-                            val editText = findViewById<EditText>(kode[i])
-                            val userInput = editText.text.toString()
+                        if (!isFieldsEmpty) {
+                            //content values
+                            contentValues.put("Created_at", currentDateTime)
+                            contentValues.put("shift", shift)
+                            contentValues.put("nama_lokasi", lokasi)
+                            contentValues.put("grup", grup)
+                            contentValues.put("nama_loading", loading)
+                            contentValues.put("nama_pengawas", pengawas)
+                            contentValues.put("created_by_id", nama)
+                            contentValues.put("Image1", pathgambar)
+                            contentValues.put("Image2", pathgambar2)
+                            contentValues.put("Tindakan1", tindakan)
+                            contentValues.put("Tindakan2", tindakan2)
+                            contentValues.put("Nama_Supervisor", spv)
 
-                            // Menambahkan input ke kolom "kode"
-                            contentValues.put("Kode_bahaya${i + 1}", userInput)
-                        }
+                            for (i in 0 until kondisi.size) {
+                                val checkBox = findViewById<MaterialCheckBox>(kondisi[i])
+
+                                // Mendapatkan status checkbox dan menyimpannya ke dalam array
+                                val checkboxStatus = checkBox.isChecked
+
+                                // Menambahkan status checkbox ke dalam ContentValues
+                                contentValues.put("kondisi${i + 1}", checkboxStatus.toString())
+                            }
+                            for (i in 0 until keterangan.size) {
+                                val editText = findViewById<EditText>(keterangan[i])
+                                val userInput = editText.text.toString()
+
+                                // Menambahkan input ke kolom "keterangan"
+                                contentValues.put("Keterangan${i + 1}", userInput)
+                            }
+
+                            for (i in 0 until kode.size) {
+                                val editText = findViewById<EditText>(kode[i])
+                                val userInput = editText.text.toString()
+
+                                // Menambahkan input ke kolom "kode"
+                                contentValues.put("Kode_bahaya${i + 1}", userInput)
+                            }
 
 
-                        // Simpan data ke tabel
-                        val result = db.insert("jawaban", null, contentValues)
-                        db.close()
+                            // Simpan data ke tabel
+                            val result = db.insert("jawaban", null, contentValues)
+                            db.close()
 
-                        if (result != -1L) {
-                            // Penyimpanan berhasil, tampilkan pesan toast
-                            val intent = Intent(this@LoadingActivity,RVLoading::class.java)
-                            startActivity(intent)
-                            finish()
-                        } else {
-                            // Penyimpanan gagal, tampilkan pesan toast
-                            Toast.makeText(this, "Gagal menyimpan data", Toast.LENGTH_SHORT).show()
+                            if (result != -1L) {
+                                // Penyimpanan berhasil, tampilkan pesan toast
+                                val intent = Intent(this@LoadingActivity, RVLoading::class.java)
+                                startActivity(intent)
+                                finish()
+                            } else {
+                                // Penyimpanan gagal, tampilkan pesan toast
+                                Toast.makeText(this, "Gagal menyimpan data", Toast.LENGTH_SHORT)
+                                    .show()
+                            }
                         }
                     }
                 }

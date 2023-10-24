@@ -13,7 +13,7 @@ class  DBHelper(context: Context) :
     SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
     companion object {
-        private const val DATABASE_VERSION = 1
+        private const val DATABASE_VERSION = 2
         private const val DATABASE_NAME = "my_database.db"
         const val STATUS_NOT_SENT = 0
         const val STATUS_SENT = 1
@@ -64,8 +64,8 @@ class  DBHelper(context: Context) :
                     "Keterangan24 TEXT," + "kondisi25 TEXT," +
                     "Kode_bahaya25 TEXT," + "Keterangan25 TEXT," +
                     "kondisi26 TEXT," + "Kode_bahaya26 TEXT," + "Keterangan26 TEXT," +
-                    "Created_at TEXT,"+"status INTEGER DEFAULT $STATUS_NOT_SENT,"+
-                    "Nama_Pengawas TEXT,"+ "Image1 TEXT,"+"Tindakan1 TEXT,"+"Tindakan2 TEXT,"+"Image2 TEXT )"
+                    "Created_at TEXT,"+"status TEXT,"+
+                    "Nama_Pengawas TEXT,"+ "Image1 TEXT,"+"Tindakan1 TEXT,"+"Tindakan2 TEXT,"+"Image2 TEXT, "+" Nama_Supervisor )"
         )
 
 
@@ -102,8 +102,8 @@ class  DBHelper(context: Context) :
                     "Kode_bahaya19 TEXT," + "Keterangan19 TEXT," +
                     "kondisi20 TEXT," + "Kode_bahaya20 TEXT," +
                     "Keterangan20 TEXT," +
-                    "Created_at TEXT,"+"status INTEGER DEFAULT $STATUS_NOT_SENT,"+
-                    "Nama_Pengawas TEXT,"+ "Image1 TEXT,"+"Tindakan1 TEXT,"+"Tindakan2 TEXT,"+"Image2 TEXT )"
+                    "Created_at TEXT,"+"status TEXT ,"+
+                    "Nama_Pengawas TEXT,"+ "Image1 TEXT,"+"Tindakan1 TEXT,"+"Tindakan2 TEXT,"+"Image2 TEXT, "+" Nama_Supervisor )"
         )
 
 
@@ -122,8 +122,8 @@ class  DBHelper(context: Context) :
                     "kondisi22 TEXT," + "Kode_bahaya22 TEXT," +"kondisi23 TEXT," + "Kode_bahaya23 TEXT," +"kondisi24 TEXT," + "Kode_bahaya24 TEXT," +
                     "kondisi25 TEXT," + "Kode_bahaya25 TEXT," +"kondisi26 TEXT," + "Kode_bahaya26 TEXT," +"kondisi27 TEXT," + "Kode_bahaya27 TEXT," +
                     "kondisi28 TEXT," + "Kode_bahaya28 TEXT," +"kondisi29 TEXT," + "Kode_bahaya29 TEXT," +"kondisi30 TEXT," + "Kode_bahaya30 TEXT," +
-                    "Created_at TEXT,"+"status INTEGER DEFAULT $STATUS_NOT_SENT,"+
-                    "Nama_Pengawas TEXT,"+ "Image1 TEXT,"+"Tindakan1 TEXT,"+"Tindakan2 TEXT,"+"Image2 TEXT )"
+                    "Created_at TEXT,"+"status TEXT,"+
+                    "Nama_Pengawas TEXT,"+ "Image1 TEXT,"+"Tindakan1 TEXT,"+"Tindakan2 TEXT,"+"Image2 TEXT, "+" Nama_Supervisor  )"
         )
 
     }
@@ -233,6 +233,7 @@ class  DBHelper(context: Context) :
                 val Img2 = cursor.getString(cursor.getColumnIndex("Image2"))
                 val tindakan1 = cursor.getString(cursor.getColumnIndex("Tindakan1"))
                 val tindakan2 = cursor.getString(cursor.getColumnIndex("Tindakan2"))
+                val spv = cursor.getString(cursor.getColumnIndex("Nama_Supervisor"))
 
 
                 val myData = AnswerEntity(id,lokasi,loading,shift,grup,iduser,ck1,kode1,ket1,ck2,kode2,ket2,ck3,
@@ -242,7 +243,7 @@ class  DBHelper(context: Context) :
                     kode15,ket15,ck16,kode16,ket16,ck17,kode17,ket17,ck18,kode18,ket18,
                     ck19,kode19,ket19,ck20,kode20,ket20,ck21,kode21,ket21,ck22,kode22,
                     ket22,ck23,kode23,ket23,ck24,kode24,ket24,ck25,kode25,ket25,ck26,
-                    kode26,ket26,tanggal,Pengawas,Img1,Img2,tindakan1,tindakan2)
+                    kode26,ket26,tanggal,Pengawas,Img1,Img2,tindakan1,tindakan2,spv)
                 dataList.add(myData)
             } while (cursor.moveToNext())
         }
@@ -332,6 +333,7 @@ class  DBHelper(context: Context) :
                 val Img2 = cursor.getString(cursor.getColumnIndex("Image2"))
                 val tindakan1 = cursor.getString(cursor.getColumnIndex("Tindakan1"))
                 val tindakan2 = cursor.getString(cursor.getColumnIndex("Tindakan2"))
+                val spv = cursor.getString(cursor.getColumnIndex("Nama_Supervisor"))
 
 
                 val myData = DumpingEntity(id,lokasi,dumping,shift,grup,iduser,ck1,kode1,ket1,ck2,kode2,ket2,ck3,
@@ -339,7 +341,7 @@ class  DBHelper(context: Context) :
                     ket7,ck8,kode8,ket8,ck9,kode9,ket9,ck10,kode10,ket10,ck11,kode11,
                     ket11,ck12,kode12,ket12,ck13,kode13,ket13,ck14,kode14,ket14,ck15,
                     kode15,ket15,ck16,kode16,ket16,ck17,kode17,ket17,ck18,kode18,ket18,
-                    ck19,kode19,ket19,ck20,kode20,ket20,tanggal,Pengawas,Img1,Img2,tindakan1,tindakan2)
+                    ck19,kode19,ket19,ck20,kode20,ket20,tanggal,Pengawas,Img1,Img2,tindakan1,tindakan2,spv)
                 dataList.add(myData)
             } while (cursor.moveToNext())
         }
@@ -428,6 +430,7 @@ class  DBHelper(context: Context) :
                 val Img2 = cursor.getString(cursor.getColumnIndex("Image2"))
                 val tindakan1 = cursor.getString(cursor.getColumnIndex("Tindakan1"))
                 val tindakan2 = cursor.getString(cursor.getColumnIndex("Tindakan2"))
+                val spv = cursor.getString(cursor.getColumnIndex("Nama_Supervisor"))
 
 
                 val myData = HaulingEntity(id,lokasi,hauling,shift,grup,iduser,ck1,kode1,ck2,kode2,ck3,
@@ -435,7 +438,7 @@ class  DBHelper(context: Context) :
                     ck11,kode11,ck12,kode12,ck13,kode13,ck14,kode14,ck15, kode15,ck16,kode16,ck17,
                     kode17,ck18,kode18,ck19,kode19,ck20,kode20,ck21,kode21,ck22,kode22,ck23,kode23,
                     ck24,kode24,ck25,kode25,ck26,kode26,ck27,kode27,ck28,kode28,ck29,kode29,ck30,kode30,
-                    tanggal,Pengawas,Img1,Img2,tindakan1,tindakan2)
+                    tanggal,Pengawas,Img1,Img2,tindakan1,tindakan2,spv)
                 dataList.add(myData)
             } while (cursor.moveToNext())
         }

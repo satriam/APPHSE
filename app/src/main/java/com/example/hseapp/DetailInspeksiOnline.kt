@@ -22,6 +22,11 @@ class DetailInspeksiOnline : AppCompatActivity() {
     private lateinit var  epembuat: TextView
     private lateinit var  egambar1: ImageView
     private lateinit var  egambar2: ImageView
+    private lateinit var  eqr1: ImageView
+    private lateinit var  eqr2: ImageView
+    private lateinit var  epengawasmitra: TextView
+    private lateinit var  epengawaslap: TextView
+    private lateinit var  esupervisor: TextView
     private lateinit var  ehapus: Button
     private lateinit var  eupdate: Button
     private lateinit var sessionManager: SessionManager
@@ -41,6 +46,11 @@ class DetailInspeksiOnline : AppCompatActivity() {
         epembuat= findViewById(R.id.namapembuat)
         egambar1= findViewById(R.id.gambar1)
         egambar2= findViewById(R.id.gambar2)
+        eqr1= findViewById(R.id.qr1)
+        eqr2= findViewById(R.id.qr2)
+        epengawasmitra= findViewById(R.id.pengawasmitra)
+        epengawaslap= findViewById(R.id.pengawaslap)
+        esupervisor= findViewById(R.id.supervisor)
         ehapus= findViewById(R.id.hapus)
         eupdate= findViewById(R.id.update)
     }
@@ -55,9 +65,9 @@ class DetailInspeksiOnline : AppCompatActivity() {
         val pembuat = intent.getStringExtra("nama")
         val gambar = intent.getStringExtra("gambar1")
         val gambar2 = intent.getStringExtra("gambar2")
-
-        Log.d("gambar2", gambar2.toString())
-
+        val qr1 = intent.getStringExtra("qr_mitra")
+        val qr2 = intent.getStringExtra("qr_pengawas")
+        val spv = intent.getStringExtra("supervisor")
 
         etanggal.text = tanggal
         elokasi.text = lokasi
@@ -65,6 +75,10 @@ class DetailInspeksiOnline : AppCompatActivity() {
         eshift.text = shift
         egrup.text = grup
         epembuat.text = pembuat
+        epengawasmitra.text = pengawas
+        epengawaslap.text = pembuat
+        esupervisor.text = spv
+
 
         val widthInPixels = 100
         val heightInPixels = 100
@@ -84,9 +98,25 @@ class DetailInspeksiOnline : AppCompatActivity() {
             .centerCrop()
             .into(egambar2)
 
-        Log.d("GAMBAR2",imageUri2.toString())
+        val imageqr1 = RetrofitInstance.BASE_URL + qr1
+        Picasso.get()
+            .load(imageqr1)
+            .resize(widthInPixels, heightInPixels)
+            .centerCrop()
+            .into(eqr1)
+
+        val imageqr2 = RetrofitInstance.BASE_URL + qr2
+        Picasso.get()
+            .load(imageqr2)
+            .resize(widthInPixels, heightInPixels)
+            .centerCrop()
+            .into(eqr2)
+
         sessionManager = SessionManager(this)
         if (sessionManager.getRole() == "admin"){
+            ehapus.visibility = View.VISIBLE
+            eupdate.visibility = View.VISIBLE
+        }else if (sessionManager.getRole()=="Supervisor"){
             ehapus.visibility = View.VISIBLE
             eupdate.visibility = View.VISIBLE
         }

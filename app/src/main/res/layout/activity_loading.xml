@@ -148,11 +148,6 @@
             </com.google.android.material.textfield.TextInputLayout>
 <!--             Lokasi -->
 
-
-
-
-
-
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

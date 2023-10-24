@@ -50,7 +50,7 @@ class AdapterLoading(private val dataList: ArrayList<Loading> , private val sess
         }
 
         holder.status.setTextColor(ContextCompat.getColor(holder.itemView.context, R.color.white))
-        holder.status.text = "Menunggu Acc"
+        holder.status.text = data.status
 
         val imageUrl = RetrofitInstance.BASE_URL + data.img_url_1
         val widthInPixels = 80
@@ -81,6 +81,9 @@ class AdapterLoading(private val dataList: ArrayList<Loading> , private val sess
                     intent.putExtra("gambar1", data.img_url_1)
                     intent.putExtra("gambar2", data.img_url_2)
                     intent.putExtra("nama", data.nama)
+                    intent.putExtra("qr_mitra", data.qr_mitra)
+                    intent.putExtra("qr_pengawas", data.qr_pengawas)
+                    intent.putExtra("supervisor", data.nama_supervisor)
                     ctx.startActivity(intent)
 //                }
 //            } ?: run {

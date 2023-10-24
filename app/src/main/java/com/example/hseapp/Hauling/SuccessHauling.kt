@@ -65,6 +65,7 @@ class SuccessHauling : Fragment() {
 
         val apiService = apiClient.getHauling()
         val apiadmin = apiClient.getHaulingAdmin()
+        val apispv = apiClient.getrecentspvHauling()
         val listData = ArrayList<Loading>()
 
         if (sessionManager.getRole() == "admin") {
@@ -75,7 +76,7 @@ class SuccessHauling : Fragment() {
                 ) {
                     if (response.isSuccessful) {
                         val dataMe = response.body()
-                        Log.e("DATA Hauling", dataMe.toString())
+                        Log.e("DATA LOADING", dataMe.toString())
 
                         if (dataMe != null) {
                             listData.addAll(dataMe)
@@ -91,11 +92,40 @@ class SuccessHauling : Fragment() {
                 }
 
                 override fun onFailure(call: Call<ArrayList<Loading>>, t: Throwable) {
-                    Log.e("DATA Hauling", t.toString())
+                    Log.e("DATA LOADING", t.toString())
                     // Handle failure
                 }
             })
-        } else {
+        } else if(sessionManager.getRole() == "Supervisor"){
+            apispv.enqueue(object : Callback<ArrayList<Loading>> {
+                override fun onResponse(
+                    call: Call<ArrayList<Loading>>,
+                    response: Response<ArrayList<Loading>>
+                ) {
+                    if (response.isSuccessful) {
+                        val dataMe = response.body()
+                        Log.e("DATA LOADING", dataMe.toString())
+
+                        if (dataMe != null) {
+                            listData.addAll(dataMe)
+                            adapter = AdapterLoading(listData,sessionManager)
+                            recyclerView.adapter = adapter
+                        } else {
+                            // Handle case when dataMe is null
+                        }
+                    } else {
+                        val errorMessage = response.message()
+                        // Handle error message
+                    }
+                }
+
+                override fun onFailure(call: Call<ArrayList<Loading>>, t: Throwable) {
+                    Log.e("DATA LOADING", t.toString())
+                    // Handle failure
+                }
+            })
+        }
+        else {
 
             apiService.enqueue(object : Callback<ArrayList<Loading>> {
                 override fun onResponse(
@@ -104,7 +134,7 @@ class SuccessHauling : Fragment() {
                 ) {
                     if (response.isSuccessful) {
                         val dataMe = response.body()
-                        Log.e("DATA Hauling", dataMe.toString())
+                        Log.e("DATA LOADING", dataMe.toString())
 
                         if (dataMe != null) {
                             listData.addAll(dataMe)
@@ -120,7 +150,7 @@ class SuccessHauling : Fragment() {
                 }
 
                 override fun onFailure(call: Call<ArrayList<Loading>>, t: Throwable) {
-                    Log.e("DATA Hauling", t.toString())
+                    Log.e("DATA LOADING", t.toString())
                     // Handle failure
                 }
             })

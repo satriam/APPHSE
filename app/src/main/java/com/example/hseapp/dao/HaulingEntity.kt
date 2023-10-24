@@ -73,5 +73,6 @@ data class HaulingEntity(
     val gambar2:String,
     val tindakan1:String,
     val tindakan2:String,
+    val spv:String
 )
 
