@@ -33,6 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Tanggal"
+                android:textStyle="bold"
                 android:textSize="15dp"
                 android:layout_marginRight="45dp"
                 android:layout_marginLeft="10dp"/>
@@ -60,6 +61,7 @@
                 android:layout_height="wrap_content"
                 android:text="Pengawas"
                 android:textSize="15dp"
+                android:textStyle="bold"
                 android:layout_marginRight="30dp"
                 android:layout_marginLeft="10dp"/>
             <TextView
@@ -86,6 +88,7 @@
                 android:layout_height="wrap_content"
                 android:text="Lokasi"
                 android:textSize="15dp"
+                android:textStyle="bold"
                 android:layout_marginRight="57dp"
                 android:layout_marginLeft="10dp"/>
             <TextView
@@ -111,6 +114,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Lokasi Detail"
+                android:textStyle="bold"
                 android:textSize="15dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginLeft="10dp"/>
@@ -137,6 +141,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Shift"
+                android:textStyle="bold"
                 android:textSize="15dp"
                 android:layout_marginRight="70dp"
                 android:layout_marginLeft="10dp"/>
@@ -163,6 +168,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Grup"
+                android:textStyle="bold"
                 android:textSize="15dp"
                 android:layout_marginRight="70dp"
                 android:layout_marginLeft="10dp"/>
@@ -189,6 +195,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Dibuat oleh"
+                android:textStyle="bold"
                 android:textSize="15dp"
                 android:layout_marginRight="28dp"
                 android:layout_marginLeft="10dp"/>
@@ -216,6 +223,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Supervisor"
+                android:textStyle="bold"
                 android:textSize="15dp"
                 android:layout_marginRight="35dp"
                 android:layout_marginLeft="10dp"/>
@@ -259,19 +267,78 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Temuan"
+                android:textStyle="bold"
+                android:textSize="15dp"
+                android:layout_marginRight="87dp"
+                android:layout_marginLeft="10dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=":"
+                android:textSize="15dp"
+                android:layout_marginRight="30dp"/>
+            <TextView
+                android:id="@+id/temuan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TEST!"
+                android:textSize="15dp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rekomendasi/\ntindakan perbaikan"
+                android:textStyle="bold"
+                android:textSize="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginLeft="10dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=":"
+                android:textSize="15dp"
+                android:layout_marginRight="30dp"/>
+            <TextView
+                android:id="@+id/rekomendasi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TEST!"
+                android:textSize="15dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
             android:gravity="center"
-            android:layout_margin="20dp"
             >
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:gravity="center"
-                android:layout_marginRight="20dp">
+                android:layout_marginRight="5dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pengawas Mitra\n"
+                    android:textAlignment="center"/>
             <ImageView
                 android:id="@+id/qr1"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:src="@drawable/promotif"
                 android:scaleType="fitCenter"
                 />
@@ -286,15 +353,45 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:gravity="center">
+                android:gravity="center"
+                android:layout_marginRight="5dp">
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pengawas \nRehandling"
+                    android:textAlignment="center"/>
             <ImageView
                 android:id="@+id/qr2"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:src="@drawable/promotif"
                 android:scaleType="fitCenter"/>
                 <TextView
                     android:id="@+id/pengawaslap"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nama Pengawas"
+                    android:textAlignment="center"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Supervisor \nRehandling"
+                    android:textAlignment="center"/>
+                <ImageView
+                    android:id="@+id/qr3"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/promotif"
+                    android:scaleType="fitCenter"/>
+                <TextView
+                    android:id="@+id/spvrehandling"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Nama Pengawas"

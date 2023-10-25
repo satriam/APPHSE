@@ -31,8 +31,12 @@ class DetailInspeksiOnline : AppCompatActivity() {
     private lateinit var  egambar2: ImageView
     private lateinit var  eqr1: ImageView
     private lateinit var  eqr2: ImageView
+    private lateinit var  eqr3: ImageView
     private lateinit var  epengawasmitra: TextView
     private lateinit var  epengawaslap: TextView
+    private lateinit var  espv: TextView
+    private lateinit var  etindakan: TextView
+    private lateinit var  etemuan: TextView
     private lateinit var  esupervisor: TextView
     private lateinit var  edetaillokasi: TextView
     private lateinit var  ehapus: Button
@@ -56,10 +60,14 @@ class DetailInspeksiOnline : AppCompatActivity() {
         egambar2= findViewById(R.id.gambar2)
         eqr1= findViewById(R.id.qr1)
         eqr2= findViewById(R.id.qr2)
+        eqr3= findViewById(R.id.qr3)
         epengawasmitra= findViewById(R.id.pengawasmitra)
         epengawaslap= findViewById(R.id.pengawaslap)
+        espv= findViewById(R.id.spvrehandling)
         esupervisor= findViewById(R.id.supervisor)
         edetaillokasi= findViewById(R.id.lokasidetail)
+        etindakan= findViewById(R.id.rekomendasi)
+        etemuan= findViewById(R.id.temuan)
         ehapus= findViewById(R.id.hapus)
         eupdate= findViewById(R.id.update)
 
@@ -77,14 +85,18 @@ class DetailInspeksiOnline : AppCompatActivity() {
         val gambar2 = intent.getStringExtra("gambar2")
         val qr1 = intent.getStringExtra("qr_mitra")
         val qr2 = intent.getStringExtra("qr_pengawas")
+        val qr3 = intent.getStringExtra("qr_spv")
         val spv = intent.getStringExtra("supervisor")
         val status = intent.getStringExtra("status")
+        val temuan = intent.getStringExtra("temuan")
+        val tindakan = intent.getStringExtra("tindakan")
         val detailloading = intent.getStringExtra("detailloading")
         val detaildumping = intent.getStringExtra("detaildumping")
         val detailhauling = intent.getStringExtra("detailhauling")
         val loading = intent.getIntExtra("id_loading", 0)
         val dumping = intent.getIntExtra("id_dumping", 0)
         val hauling = intent.getIntExtra("id_hauling", 0)
+
 
         etanggal.text = tanggal
         elokasi.text = lokasi
@@ -95,6 +107,9 @@ class DetailInspeksiOnline : AppCompatActivity() {
         epengawasmitra.text = pengawas
         epengawaslap.text = pembuat
         esupervisor.text = spv
+        espv.text = spv
+        etindakan.text = tindakan
+        etemuan.text = temuan
 
 
         val widthInPixels = 100
@@ -128,6 +143,13 @@ class DetailInspeksiOnline : AppCompatActivity() {
             .resize(widthInPixels, heightInPixels)
             .centerCrop()
             .into(eqr2)
+
+        val imageqr3 = RetrofitInstance.BASE_URL + qr3
+        Picasso.get()
+            .load(imageqr3)
+            .resize(widthInPixels, heightInPixels)
+            .centerCrop()
+            .into(eqr3)
 
         if(detailloading!=null){
             edetaillokasi.text = detailloading
