@@ -37,6 +37,7 @@ private const val ARG_PARAM2 = "param2"
 class PendingFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
+    private val sendLock = Any()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -86,9 +87,12 @@ class PendingFragment : Fragment() {
 
         if (dataList.isNotEmpty()) {
             val apiClient = RetrofitInstance.Create(requireContext())
-
+            synchronized(sendLock) {
+                // Buat fungsi rekursif untuk mengirim data satu per satu
+                sendDataRecursively(apiClient, dataList, idList, dbHelper, 0)
+            }
             // Buat fungsi rekursif untuk mengirim data satu per satu
-            sendDataRecursively(apiClient, dataList, idList, dbHelper, 0)
+//            sendDataRecursively(apiClient, dataList, idList, dbHelper, 0)
         } else {
             Toast.makeText(requireContext(), "Data sudah diupdate", Toast.LENGTH_SHORT).show()
             swipeRefreshLayout.isRefreshing = false
@@ -98,7 +102,13 @@ class PendingFragment : Fragment() {
     }
 
 
-    private fun sendDataRecursively(apiClient: ApiInterface, dataList: List<AnswerEntity>, idList: List<Int>, dbHelper: DBHelper, index: Int) {
+    private fun sendDataRecursively(
+        apiClient: ApiInterface,
+        dataList: List<AnswerEntity>,
+        idList: List<Int>,
+        dbHelper: DBHelper,
+        index: Int
+    ) {
         if (index >= dataList.size) {
             // Semua data telah dikirim, tutup database dan selesai
             dbHelper.close()
@@ -108,6 +118,8 @@ class PendingFragment : Fragment() {
         val data = dataList[index]
         val imageFile = File(data.gambar1)
         val imageFile2 = File(data.gambar2)
+
+        // Buat request bodies di luar callback
         val requestFile = RequestBody.create("image/*".toMediaTypeOrNull(), imageFile)
         val requestFile2 = RequestBody.create("image/*".toMediaTypeOrNull(), imageFile2)
         val imageBody = MultipartBody.Part.createFormData("gambar1", imageFile.name, requestFile)
@@ -135,9 +147,18 @@ class PendingFragment : Fragment() {
                             "Gagal mengirim data ke API. Pesan kesalahan: $errorMessage",
                             Toast.LENGTH_SHORT
                         ).show()
-                        Log.e("buii",errorMessage.toString())
+                        Log.e("buii", errorMessage.toString())
                         swipeRefreshLayout.isRefreshing = false
                     }
+                } else {
+                    // Tangani kasus di mana body responsenya null
+                    // Ini mungkin disebabkan oleh kesalahan dari API
+                    Toast.makeText(
+                        requireContext(),
+                        "Gagal mengirim data ke API. Respon tidak valid.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    swipeRefreshLayout.isRefreshing = false
                 }
 
                 // Lanjutkan ke data berikutnya
@@ -146,7 +167,7 @@ class PendingFragment : Fragment() {
 
             override fun onFailure(call: retrofit2.Call<response>, t: Throwable) {
                 Toast.makeText(requireContext(), "Terjadi kesalahan dalam permintaan: ${t.message}", Toast.LENGTH_SHORT).show()
-                Log.e("tolong",t.toString())
+                Log.e("tolong", t.toString())
                 swipeRefreshLayout.isRefreshing = false
                 dbHelper.close()
             }

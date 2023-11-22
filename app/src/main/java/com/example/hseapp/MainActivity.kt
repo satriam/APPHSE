@@ -82,20 +82,24 @@ class MainActivity : AppCompatActivity() {
         //test
 
 //        notificationManager = NotificationManagerCompat.from(this)
+        val permissions = arrayOf(
+            Manifest.permission.CAMERA, // Izin kamera
+            Manifest.permission.BIND_NOTIFICATION_LISTENER_SERVICE, // Izin notifikasi
+            Manifest.permission.READ_EXTERNAL_STORAGE, // Akses penyimpanan eksternal
+            Manifest.permission.POST_NOTIFICATIONS, // Akses penyimpanan eksternal
+            Manifest.permission.WRITE_EXTERNAL_STORAGE // Akses penyimpanan internal (internal storage)
+        )
 
-        val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE )
+        val permissionDeniedList = ArrayList<String>()
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            if (!Environment.isExternalStorageManager()) {
-                // Jika belum memiliki izin MANAGE_EXTERNAL_STORAGE, buka layar pengaturan
-                val intent = Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
-                intent.data = Uri.parse("package:$packageName")
-                startActivity(intent)
+        for (permission in permissions) {
+            if (ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_DENIED) {
+                permissionDeniedList.add(permission)
             }
-        } else {
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, permissions, PERMISSION_CODE)
-            }
+        }
+
+        if (permissionDeniedList.isNotEmpty()) {
+            ActivityCompat.requestPermissions(this, permissionDeniedList.toTypedArray(), 123)
         }
 
         swipeRefreshLayout = findViewById(R.id.swipe)

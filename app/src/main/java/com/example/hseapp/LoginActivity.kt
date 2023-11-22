@@ -34,6 +34,7 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
     private fun checklogin(){
         if (sessionManager.isLogin()!! ){
 
@@ -64,9 +65,6 @@ class LoginActivity : AppCompatActivity() {
             ).enqueue(object : Callback<SignInBody> {
                 override fun onResponse(call: Call<SignInBody>, response: Response<SignInBody>) {
                     val loginresponse =response.body()
-
-                    Log.d("login",loginresponse.toString())
-
                     if(loginresponse?.status == 400){
                         progressBar.visibility = View.GONE
                         showAlertDialog("GAGAL", "AKUN BELUM DIAKTIFKAN!\nHubungi admin! "){

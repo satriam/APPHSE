@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "870537844747",
+    "project_id": "appshe-25072",
+    "storage_bucket": "appshe-25072.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:870537844747:android:a49cb41a61d35712b2cf0e",
+        "android_client_info": {
+          "package_name": "com.example.hseapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWVEFTEwI2NDmxbpV_i0aNKCMy2RM6ZEE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

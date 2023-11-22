@@ -27,6 +27,15 @@ class SessionManager(context: Context){
         editor.putInt("Id",Id)
         editor.apply()
     }
+    fun saveToken(token:String){
+        val editor=prefs.edit()
+        editor.putString("Tokenfirebase",token)
+        editor.apply()
+    }
+
+    fun getToken(): String? {
+        return prefs?.getString("Tokenfirebase", null)
+    }
     fun getid(): Int? {
         return prefs?.getInt("Id", NULL)
     }

@@ -1,6 +1,9 @@
 package com.example.hseapp
 
+import android.Manifest
+import android.app.NotificationManager
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,6 +13,9 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import com.example.hseapp.Loading.AccSpvFragment
 import com.example.hseapp.dataclass.response
 import com.example.hseapp.retrofit.RetrofitInstance
@@ -42,6 +48,7 @@ class DetailInspeksiOnline : AppCompatActivity() {
     private lateinit var  ehapus: Button
     private lateinit var  eupdate: Button
     private lateinit var sessionManager: SessionManager
+    private lateinit var NotificationManager: NotificationManagerCompat
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail_inspeksi_online)
@@ -74,7 +81,7 @@ class DetailInspeksiOnline : AppCompatActivity() {
     }
 
     private fun intent() {
-
+        sessionManager = SessionManager(this)
         val tanggal = intent.getStringExtra("tanggal")
         val lokasi = intent.getStringExtra("lokasi")
         val pengawas = intent.getStringExtra("pengawas")
@@ -112,6 +119,8 @@ class DetailInspeksiOnline : AppCompatActivity() {
         etemuan.text = temuan
 
 
+        val data = sessionManager.getToken()
+        Log.d("data",data.toString())
         val widthInPixels = 100
         val heightInPixels = 100
 
@@ -159,9 +168,10 @@ class DetailInspeksiOnline : AppCompatActivity() {
             edetaillokasi.text = detailhauling
         }
 
-        sessionManager = SessionManager(this)
+
         if (sessionManager.getRole() == "admin") {
             ehapus.visibility = View.VISIBLE
+            test()
             eupdate.visibility = View.VISIBLE
         } else if (sessionManager.getRole() == "Supervisor") {
             if (status == "Acc") {
@@ -185,6 +195,22 @@ class DetailInspeksiOnline : AppCompatActivity() {
         }
     }
 
+
+    private fun test(){
+        NotificationManager =NotificationManagerCompat.from(this)
+        ehapus.setOnClickListener {
+            val builder = NotificationCompat.Builder(this,BaseApplication.CHANNEL_1_ID)
+                .setSmallIcon(R.drawable.ic_1)
+                .setContentTitle("Halo!!")
+                .setContentText("Ini adalah content text")
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+
+            val notification = builder.build()
+
+            NotificationManager.notify(1,notification)
+        }
+    }
     private fun update() {
         val id = intent.getIntExtra("id_loading", 0)
         val tanggal = intent.getStringExtra("tanggal")
